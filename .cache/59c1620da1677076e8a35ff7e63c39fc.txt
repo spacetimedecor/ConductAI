@@ -1,0 +1,1 @@
+<p>The Python file 'manimlib/camera/camera.py' primarily manages camera initialization, configuration, and frame setup for rendering scenes in Manim.</p>

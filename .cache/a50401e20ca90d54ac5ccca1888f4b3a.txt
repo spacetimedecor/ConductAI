@@ -1,0 +1,8 @@
+<p>The <code>manimlib/mobject/matrix.py</code> file defines classes and functions for creating and manipulating matrix objects within the Manim animation library. These classes facilitate the display of matrices, including their numerical entries, in various formats suitable for mathematical visualizations.</p>
+<ul>
+  <li><strong>Matrix</strong>: The base class for creating matrix objects, providing core functionalities for rendering matrices with customizable appearance.</li>
+  <li><strong>DecimalMatrix</strong>: A subclass of <code>Matrix</code> that formats entries as decimal numbers, allowing precise control over decimal places.</li>
+  <li><strong>IntegerMatrix</strong>: A subclass of <code>Matrix</code> designed specifically for matrices with integer entries, simplifying the display of integer matrices.</li>
+  <li><strong>TexMatrix</strong>: A subclass that renders matrix entries using LaTeX formatting, suitable for displaying matrices with mathematical notation.</li>
+  <li><strong>MobjectMatrix</strong>: A utility class for creating matrices from existing mobjects, enabling complex or custom matrix representations.</li>
+</ul>

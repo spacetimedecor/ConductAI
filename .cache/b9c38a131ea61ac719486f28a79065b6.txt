@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/scene/scene_file_writer.py is to manage the creation and handling of output files and directories for saving scene animations in the Manim library.</p>

@@ -1,0 +1,57 @@
+<p>The <code>manimlib/utils/bezier.py</code> file provides utility functions for working with Bezier curves, including creation, interpolation, and approximation of quadratic and cubic Bezier segments. These functions facilitate the construction, manipulation, and analysis of Bezier curves, which are fundamental in computer graphics and animations for creating smooth, scalable curves.</p>
+<ul>
+  <li>
+    <strong>bezier</strong>: Constructs a Bezier curve function from a list of control points, allowing evaluation of the curve at any parameter <code>t</code>.
+  </li>
+  <li>
+    <strong>partial_bezier_points</strong>: (Not detailed here but likely involved in computing partial segments of Bezier curves.)
+  </li>
+  <li>
+    <strong>partial_quadratic_bezier_points</strong>: (Similarly, for quadratic Bezier segments.)
+  </li>
+  <li>
+    <strong>interpolate</strong>: Provides linear interpolation between points, useful for generating intermediate points on curves.
+  </li>
+  <li>
+    <strong>outer_interpolate</strong>: Performs interpolation considering the outer bounds, aiding in curve smoothing.
+  </li>
+  <li>
+    <strong>set_array_by_interpolation</strong>: Sets array values based on interpolation, useful for array-based curve manipulations.
+  </li>
+  <li>
+    <strong>integer_interpolate</strong>: Interpolates between integer values, ensuring discrete steps are maintained.
+  </li>
+  <li>
+    <strong>mid</strong>: Calculates the midpoint between two points, fundamental in constructing quadratic Bezier curves.
+  </li>
+  <li>
+    <strong>inverse_interpolate</strong>: Computes the parameter value corresponding to a point on a curve, enabling reverse mapping.
+  </li>
+  <li>
+    <strong>match_interpolate</strong>: Aligns or matches points through interpolation, aiding in curve fitting.
+  </li>
+  <li>
+    <strong>quadratic_bezier_points_for_arc</strong>: Generates quadratic Bezier points approximating an arc segment.
+  </li>
+  <li>
+    <strong>approx_smooth_quadratic_bezier_handles</strong>: Approximates smooth quadratic Bezier handles for a given path.
+  </li>
+  <li>
+    <strong>smooth_quadratic_path</strong>: Creates a smooth quadratic Bezier path through a set of points.
+  </li>
+  <li>
+    <strong>get_smooth_cubic_bezier_handle_points</strong>: Computes handle points for smooth cubic Bezier curves.
+  </li>
+  <li>
+    <strong>diag_to_matrix</strong>: Converts diagonal representations to matrix form, possibly for transformations.
+  </li>
+  <li>
+    <strong>is_closed</strong>: Checks if a path or curve is closed.
+  </li>
+  <li>
+    <strong>get_quadratic_approximation_of_cubic</strong>: Approximates a cubic Bezier with a quadratic one.
+  </li>
+  <li>
+    <strong>get_smooth_quadratic_bezier_path_through</strong>: Generates a smooth quadratic Bezier path passing through specified points.
+  </li>
+</ul>

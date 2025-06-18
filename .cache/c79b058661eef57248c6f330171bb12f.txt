@@ -1,0 +1,19 @@
+<p>The <code>manimlib/mobject/three_dimensions.py</code> file provides classes and functions for creating and manipulating three-dimensional objects within the Manim animation framework. It includes definitions for various 3D geometric shapes, surfaces, and complex objects, enabling the construction of three-dimensional scenes and visualizations.</p>
+<ul>
+  <li><strong>SurfaceMesh</strong>: Represents a mesh surface, typically used for visualizing parametric surfaces or complex 3D geometries.</li>
+  <li><strong>Sphere</strong>: Defines a 3D sphere object with customizable radius and resolution.</li>
+  <li><strong>Torus</strong>: Implements a torus shape, allowing for the creation of donut-shaped objects.</li>
+  <li><strong>Cylinder</strong>: Represents a cylinder with specified height and radius.</li>
+  <li><strong>Cone</strong>: Defines a conical shape, useful for visualizations involving tapering objects.</li>
+  <li><strong>Line3D</strong>: A class for creating 3D lines between points in space.</li>
+  <li><strong>Disk3D</strong>: Represents a flat, circular disk in 3D space.</li>
+  <li><strong>Square3D</strong>: Defines a square in three dimensions, often used as a face of 3D objects.</li>
+  <li><strong>Cube</strong>: Implements a cube object, a fundamental 3D shape with equal edges.</li>
+  <li><strong>Prism</strong>: Represents a generic prism shape, which can be customized with different bases.</li>
+  <li><strong>VGroup3D</strong>: A container class for grouping multiple 3D mobjects together.</li>
+  <li><strong>VCube</strong>: A specialized class for creating and managing cube objects.</li>
+  <li><strong>VPrism</strong>: A class for creating and managing prism objects.</li>
+  <li><strong>Dodecahedron</strong>: Defines a dodecahedron, a polyhedron with twelve pentagonal faces.</li>
+  <li><strong>Prismify</strong>: A utility class or function for converting 2D shapes into 3D prisms.</li>
+</ul>
+<p>The file also includes the <code>square_to_cube_faces</code> function, which likely converts square faces into cube faces, facilitating the creation of cube geometries from simpler shapes.</p>

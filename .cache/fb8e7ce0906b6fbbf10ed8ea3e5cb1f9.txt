@@ -1,0 +1,8 @@
+<p>The <code>surface.py</code> file in the <code>manimlib/mobject/types</code> directory defines classes related to 3D surface objects within the Manim animation framework. These classes facilitate the creation, manipulation, and rendering of various types of surfaces, including parametric and textured surfaces, as well as groups of surfaces. The file provides foundational classes that enable complex 3D surface modeling and visualization in animations.</p>
+
+<ul>
+  <li><strong>Surface</strong>: (not detailed in the provided snippet) Likely serves as a base class for 3D surface objects, providing core functionality for surface rendering and manipulation.</li>
+  <li><strong>ParametricSurface</strong>: (not detailed here) Presumably represents surfaces defined parametrically, allowing for flexible surface definitions via mathematical functions.</li>
+  <li><strong>SGroup</strong>: A subclass of <code>Surface</code> that acts as a container for multiple parametric surfaces, enabling grouping and collective manipulation of multiple surface objects.</li>
+  <li><strong>TexturedSurface</strong>: (not detailed here) Likely extends surface capabilities to include textures, enhancing visual detail and realism of surfaces.</li>
+</ul>

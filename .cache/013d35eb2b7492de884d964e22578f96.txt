@@ -1,0 +1,7 @@
+<p>The <code>manimlib/scene/scene.py</code> file defines the core classes responsible for managing and orchestrating scenes within the Manim animation library. It provides the foundational structure for setting up, rendering, and controlling the sequence of visual elements and animations in a scene.</p>
+<ul>
+  <li><strong>Scene</strong>: The primary class representing a single animation scene. It manages the lifecycle of the scene, including setup, rendering, and cleanup, and provides methods for adding and animating mobjects.</li>
+  <li><strong>SceneState</strong>: A class that maintains the current state of the scene, including camera position, background, and other scene-wide settings, ensuring consistent rendering and updates.</li>
+  <li><strong>EndScene</strong>: A subclass or specialized scene used to define the concluding part of an animation, often handling final animations or cleanup procedures.</li>
+  <li><strong>ThreeDScene</strong>: An extension of the Scene class that adds capabilities for 3D rendering, allowing for three-dimensional visualizations and camera controls within a scene.</li>
+</ul>

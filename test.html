@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manim Library Architecture - Interactive Tree Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .controls button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        #tree-container {
+            width: 100%;
+            height: calc(100vh - 200px);
+            background: rgba(255, 255, 255, 0.95);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .node circle {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .node circle:hover {
+            stroke-width: 3px;
+            filter: brightness(1.1);
+        }
+
+        .node text {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 12px;
+            fill: #333;
+            pointer-events: none;
+            text-anchor: start;
+        }
+
+        .node.directory text {
+            font-weight: 600;
+        }
+
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-width: 1.5px;
+            stroke-opacity: 0.6;
+        }
+
+        .import-badge {
+            font-size: 10px;
+            fill: white;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            max-width: 350px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .tooltip h4 {
+            margin: 0 0 8px 0;
+            color: #3498db;
+            font-size: 14px;
+        }
+
+        .tooltip .type {
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .tooltip .type.directory { background: #3498db; }
+        .tooltip .type.python { background: #27ae60; }
+        .tooltip .type.config { background: #f39c12; }
+
+        .tooltip .summary {
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .tooltip .meta {
+            font-size: 10px;
+            color: #bdc3c7;
+            border-top: 1px solid #555;
+            padding-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .controls {
+                padding: 10px;
+            }
+            
+            .controls button {
+                padding: 8px 15px;
+                margin: 5px;
+                font-size: 12px;
+            }
+            
+            .legend {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            #tree-container {
+                height: calc(100vh - 250px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎬 Manim Library Architecture</h1>
+        <p>Interactive visualization of the Manim animation library structure. Click nodes to expand/collapse, hover for detailed information.</p>
+    </div>
+
+    <div class="controls">
+        <button onclick="expandAll()">Expand All</button>
+        <button onclick="collapseAll()">Collapse All</button>
+        <button onclick="resetZoom()">Reset View</button>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3498db;"></div>
+                <span>📁 Directory</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #27ae60;"></div>
+                <span>🐍 Python Module</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #f39c12;"></div>
+                <span>⚙️ Config File</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="tree-container"></div>
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Tree data structure
+        const treeData = {
+            "name": "manimlib",
+            "type": "directory",
+            "summary": "The manimlib submodule serves as a collection of utility functions that support various aspects of the Manim library, including debugging, data structure manipulation, directory management, family operations on mobjects, mathematical computations, and LaTeX handling.",
+            "path": "manimlib/",
+            "children": [
+                {
+                    "name": "__main__.py",
+                    "type": "python",
+                    "summary": "The primary purpose of manimlib/__main__.py is to serve as the entry point for executing Manim scripts and rendering animations.",
+                    "path": "manimlib/__main__.py",
+                    "importCount": 5
+                },
+                {
+                    "name": "config.py",
+                    "type": "config",
+                    "summary": "The primary purpose of manimlib/config.py is to initialize and manage the default and custom configuration settings for various components of the Manim library based on YAML files and command-line arguments.",
+                    "path": "manimlib/config.py",
+                    "importCount": 8
+                },
+                {
+                    "name": "extract_scene.py",
+                    "type": "python",
+                    "summary": "The primary purpose of 'manimlib/extract_scene.py' is to extract and manage scene classes from Manim modules for rendering or further processing.",
+                    "path": "manimlib/extract_scene.py",
+                    "importCount": 3
+                },
+                {
+                    "name": "module_loader.py",
+                    "type": "python",
+                    "summary": "The primary purpose of manimlib/module_loader.py is to load, import, and reload modules from files while managing their dependencies and imports.",
+                    "path": "manimlib/module_loader.py",
+                    "importCount": 4
+                },
+                {
+                    "name": "shader_wrapper.py",
+                    "type": "python",
+                    "summary": "The primary purpose of manimlib/shader_wrapper.py is to define classes and methods for managing and rendering shader programs used in visual effects rendering.",
+                    "path": "manimlib/shader_wrapper.py",
+                    "importCount": 6
+                },
+                {
+                    "name": "window.py",
+                    "type": "python",
+                    "summary": "The primary purpose of manimlib/window.py is to define the Window class responsible for managing the rendering window and display settings in Manim.",
+                    "path": "manimlib/window.py",
+                    "importCount": 7
+                },
+                {
+                    "name": "animation",
+                    "type": "directory",
+                    "summary": "The manimlib/animation submodule is responsible for defining and managing various types of animations within the Manim library. It includes classes and functions for creating, composing, and controlling animations, as well as specialized effects, object transformations, movements, and updates.",
+                    "path": "manimlib/animation/",
+                    "children": [
+                        {
+                            "name": "animation.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/animation/animation.py is to define the Animation class and related functions for creating and managing animations in the Manim library.",
+                            "path": "manimlib/animation/animation.py",
+                            "importCount": 12
+                        },
+                        {
+                            "name": "composition.py",
+                            "type": "python",
+                            "summary": "The manimlib/animation/composition.py file defines classes and functions for composing and managing sequences and groups of animations in the Manim library.",
+                            "path": "manimlib/animation/composition.py",
+                            "importCount": 8
+                        },
+                        {
+                            "name": "creation.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/animation/creation.py is to define classes for creating specific visual animations and effects in the Manim library.",
+                            "path": "manimlib/animation/creation.py",
+                            "importCount": 10
+                        },
+                        {
+                            "name": "fading.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/animation/fading.py' file defines classes and functions for creating fade-in and fade-out animations of objects in the Manim library.",
+                            "path": "manimlib/animation/fading.py",
+                            "importCount": 6
+                        },
+                        {
+                            "name": "growing.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/animation/growing.py' file defines animations for growing objects from specific points, centers, edges, or arrows in the Manim library.",
+                            "path": "manimlib/animation/growing.py",
+                            "importCount": 7
+                        },
+                        {
+                            "name": "indication.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/animation/indication.py' file defines animations that visually indicate or highlight objects during a Manim scene.",
+                            "path": "manimlib/animation/indication.py",
+                            "importCount": 9
+                        },
+                        {
+                            "name": "movement.py",
+                            "type": "python",
+                            "summary": "The manimlib/animation/movement.py file defines classes and functions for animating the movement and transformation of objects within the Manim library.",
+                            "path": "manimlib/animation/movement.py",
+                            "importCount": 8
+                        },
+                        {
+                            "name": "numbers.py",
+                            "type": "python",
+                            "summary": "The manimlib/animation/numbers.py file defines classes for animating numerical changes and transitions in the Manim library.",
+                            "path": "manimlib/animation/numbers.py",
+                            "importCount": 5
+                        },
+                        {
+                            "name": "rotation.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/animation/rotation.py is to define classes and functions for rotating objects within the Manim animation library.",
+                            "path": "manimlib/animation/rotation.py",
+                            "importCount": 6
+                        },
+                        {
+                            "name": "specialized.py",
+                            "type": "python",
+                            "summary": "The manimlib/animation/specialized.py file defines specialized animation classes, such as Broadcast, for advanced visual effects in the Manim library.",
+                            "path": "manimlib/animation/specialized.py",
+                            "importCount": 11
+                        },
+                        {
+                            "name": "transform.py",
+                            "type": "python",
+                            "summary": "The manimlib/animation/transform.py file defines classes and functions for transforming and manipulating objects during animations in the Manim library.",
+                            "path": "manimlib/animation/transform.py",
+                            "importCount": 15
+                        },
+                        {
+                            "name": "transform_matching_parts.py",
+                            "type": "python",
+                            "summary": "The manimlib/animation/transform_matching_parts.py file defines classes for transforming and matching parts or shapes between objects during animations in the Manim library.",
+                            "path": "manimlib/animation/transform_matching_parts.py",
+                            "importCount": 9
+                        },
+                        {
+                            "name": "update.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/animation/update.py is to define classes for updating and modifying objects during animations in the Manim library.",
+                            "path": "manimlib/animation/update.py",
+                            "importCount": 7
+                        }
+                    ]
+                },
+                {
+                    "name": "camera",
+                    "type": "directory",
+                    "summary": "The manimlib/camera submodule is responsible for managing the camera's setup, configuration, and scene rendering within the Manim library.",
+                    "path": "manimlib/camera/",
+                    "children": [
+                        {
+                            "name": "camera.py",
+                            "type": "python",
+                            "summary": "The Python file 'manimlib/camera/camera.py' primarily manages camera initialization, configuration, and frame setup for rendering scenes in Manim.",
+                            "path": "manimlib/camera/camera.py",
+                            "importCount": 14
+                        },
+                        {
+                            "name": "camera_frame.py",
+                            "type": "python",
+                            "summary": "The Python file 'manimlib/camera/camera_frame.py' defines the CameraFrame class, which manages the camera's position, orientation, and transformations within a scene in Manim.",
+                            "path": "manimlib/camera/camera_frame.py",
+                            "importCount": 8
+                        }
+                    ]
+                },
+                {
+                    "name": "event_handler",
+                    "type": "directory",
+                    "summary": "The 'manimlib/event_handler' submodule is responsible for managing user input events within the Manim library.",
+                    "path": "manimlib/event_handler/",
+                    "children": [
+                        {
+                            "name": "event_dispatcher.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/event_handler/event_dispatcher.py' file defines the EventDispatcher class responsible for managing and dispatching various user input events in the system.",
+                            "path": "manimlib/event_handler/event_dispatcher.py",
+                            "importCount": 4
+                        },
+                        {
+                            "name": "event_listner.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/event_handler/event_listner.py' file defines the EventListener class for representing and managing individual event callbacks associated with objects and event types.",
+                            "path": "manimlib/event_handler/event_listner.py",
+                            "importCount": 2
+                        },
+                        {
+                            "name": "event_type.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/event_handler/event_type.py' file defines the EventType class that enumerates different types of user input events for handling purposes.",
+                            "path": "manimlib/event_handler/event_type.py",
+                            "importCount": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "mobject",
+                    "type": "directory",
+                    "summary": "The submodule 'manimlib/mobject' serves as the foundational component for creating, managing, and manipulating various visual objects (mobjects) in Manim.",
+                    "path": "manimlib/mobject/",
+                    "children": [
+                        {
+                            "name": "boolean_ops.py",
+                            "type": "python",
+                            "summary": "The 'manimlib/mobject/boolean_ops.py' file defines classes and functions for performing boolean operations like union, difference, intersection, and exclusion on vectorized mobjects.",
+                            "path": "manimlib/mobject/boolean_ops.py",
+                            "importCount": 6
+                        },
+                        {
+                            "name": "changing.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/changing.py is to define classes that manage dynamic changes and animations of mobjects during visualizations.",
+                            "path": "manimlib/mobject/changing.py",
+                            "importCount": 8
+                        },
+                        {
+                            "name": "coordinate_systems.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/coordinate_systems.py is to define classes and functions for creating and managing various coordinate systems and grids used in Manim visualizations.",
+                            "path": "manimlib/mobject/coordinate_systems.py",
+                            "importCount": 12
+                        },
+                        {
+                            "name": "frame.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/frame.py is to define classes for creating and managing rectangular frame objects, such as screen and full-screen rectangles, used in visualizations.",
+                            "path": "manimlib/mobject/frame.py",
+                            "importCount": 5
+                        },
+                        {
+                            "name": "functions.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/functions.py is to define classes and functions for creating and manipulating parametric, graph, and implicit mathematical functions in visualizations.",
+                            "path": "manimlib/mobject/functions.py",
+                            "importCount": 11
+                        },
+                        {
+                            "name": "geometry.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/geometry.py is to define geometric mobject classes for creating and manipulating various shapes and figures in visualizations.",
+                            "path": "manimlib/mobject/geometry.py",
+                            "importCount": 13
+                        },
+                        {
+                            "name": "interactive.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/interactive.py is to define classes and functions for creating interactive control elements and interfaces for manipulating mobjects during visualizations.",
+                            "path": "manimlib/mobject/interactive.py",
+                            "importCount": 9
+                        },
+                        {
+                            "name": "matrix.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/matrix.py is to define classes and functions for creating and manipulating matrix objects in Manim visualizations.",
+                            "path": "manimlib/mobject/matrix.py",
+                            "importCount": 7
+                        },
+                        {
+                            "name": "mobject.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/mobject.py is to define the core classes and functions for creating, managing, and manipulating mobjects in Manim visualizations.",
+                            "path": "manimlib/mobject/mobject.py",
+                            "importCount": 18
+                        },
+                        {
+                            "name": "mobject_update_utils.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/mobject_update_utils.py is to provide utility functions for updating and managing mobject updaters and animations in Manim visualizations.",
+                            "path": "manimlib/mobject/mobject_update_utils.py",
+                            "importCount": 4
+                        },
+                        {
+                            "name": "number_line.py",
+                            "type": "python",
+                            "summary": "The manimlib/mobject/number_line.py file defines a NumberLine class for creating and managing number line visualizations in Manim.",
+                            "path": "manimlib/mobject/number_line.py",
+                            "importCount": 10
+                        },
+                        {
+                            "name": "numbers.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/numbers.py is to define classes and functions for creating and managing numerical mobjects like DecimalNumber and Integer in Manim visualizations.",
+                            "path": "manimlib/mobject/numbers.py",
+                            "importCount": 8
+                        },
+                        {
+                            "name": "probability.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/probability.py is to define classes and functions for visualizing probability spaces and distributions, such as sample spaces and bar charts.",
+                            "path": "manimlib/mobject/probability.py",
+                            "importCount": 6
+                        },
+                        {
+                            "name": "shape_matchers.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/shape_matchers.py is to define classes for creating shape-matching mobjects like surrounding rectangles and underlines in Manim visualizations.",
+                            "path": "manimlib/mobject/shape_matchers.py",
+                            "importCount": 5
+                        },
+                        {
+                            "name": "three_dimensions.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/three_dimensions.py is to define 3D geometric objects and related functions for creating three-dimensional visualizations in Manim.",
+                            "path": "manimlib/mobject/three_dimensions.py",
+                            "importCount": 14
+                        },
+                        {
+                            "name": "value_tracker.py",
+                            "type": "python",
+                            "summary": "The 'value_tracker.py' file defines classes for tracking and updating numerical values within animations by encoding them in a mobject's position.",
+                            "path": "manimlib/mobject/value_tracker.py",
+                            "importCount": 3
+                        },
+                        {
+                            "name": "vector_field.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/mobject/vector_field.py is to define classes and functions for creating, visualizing, and animating vector fields and their streamlines in Manim.",
+                            "path": "manimlib/mobject/vector_field.py",
+                            "importCount": 11
+                        },
+                        {
+                            "name": "svg",
+                            "type": "directory",
+                            "summary": "The 'manimlib/mobject/svg' submodule is responsible for handling SVG-based objects within animations, including defining classes and methods for creating, managing, and rendering SVG elements.",
+                            "path": "manimlib/mobject/svg/",
+                            "children": [
+                                {
+                                    "name": "brace.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/brace.py' is to define classes and methods for creating and manipulating SVG brace objects and their labels in animations.",
+                                    "path": "manimlib/mobject/svg/brace.py",
+                                    "importCount": 7
+                                },
+                                {
+                                    "name": "drawings.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/drawings.py' is to define SVG-based drawing classes for various objects used in animations, such as icons and symbols.",
+                                    "path": "manimlib/mobject/svg/drawings.py",
+                                    "importCount": 4
+                                },
+                                {
+                                    "name": "old_tex_mobject.py",
+                                    "type": "python",
+                                    "summary": "The purpose of 'manimlib/mobject/svg/old_tex_mobject.py' is to define classes for rendering LaTeX text objects as SVG elements in animations.",
+                                    "path": "manimlib/mobject/svg/old_tex_mobject.py",
+                                    "importCount": 9
+                                },
+                                {
+                                    "name": "special_tex.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/special_tex.py' is to define classes for creating and managing special LaTeX-based SVG text objects for animations.",
+                                    "path": "manimlib/mobject/svg/special_tex.py",
+                                    "importCount": 6
+                                },
+                                {
+                                    "name": "string_mobject.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/string_mobject.py' is to define a class for creating and managing SVG-based text objects in animations.",
+                                    "path": "manimlib/mobject/svg/string_mobject.py",
+                                    "importCount": 5
+                                },
+                                {
+                                    "name": "svg_mobject.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/svg_mobject.py' is to define classes and methods for converting SVG paths into mobjects for use in animations.",
+                                    "path": "manimlib/mobject/svg/svg_mobject.py",
+                                    "importCount": 12
+                                },
+                                {
+                                    "name": "tex_mobject.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/tex_mobject.py' is to define classes for rendering LaTeX text as SVG objects for animations.",
+                                    "path": "manimlib/mobject/svg/tex_mobject.py",
+                                    "importCount": 15
+                                },
+                                {
+                                    "name": "text_mobject.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/svg/text_mobject.py' is to define classes and functions for creating, managing, and rendering SVG-based text objects in animations.",
+                                    "path": "manimlib/mobject/svg/text_mobject.py",
+                                    "importCount": 11
+                                }
+                            ]
+                        },
+                        {
+                            "name": "types",
+                            "type": "directory",
+                            "summary": "The 'manimlib/mobject/types' submodule is responsible for defining various classes that represent different types of mobjects, such as images, SVGs, surfaces, and vectorized objects.",
+                            "path": "manimlib/mobject/types/",
+                            "children": [
+                                {
+                                    "name": "dot_cloud.py",
+                                    "type": "python",
+                                    "summary": "The 'dot_cloud.py' file defines classes for creating and managing 3D point cloud objects with customizable visual effects in Manim.",
+                                    "path": "manimlib/mobject/types/dot_cloud.py",
+                                    "importCount": 8
+                                },
+                                {
+                                    "name": "image_mobject.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/types/image_mobject.py' is to define a class for representing and rendering image objects within animations.",
+                                    "path": "manimlib/mobject/types/image_mobject.py",
+                                    "importCount": 6
+                                },
+                                {
+                                    "name": "point_cloud_mobject.py",
+                                    "type": "python",
+                                    "summary": "The 'point_cloud_mobject.py' file defines classes for creating and managing 3D point cloud objects in Manim.",
+                                    "path": "manimlib/mobject/types/point_cloud_mobject.py",
+                                    "importCount": 7
+                                },
+                                {
+                                    "name": "surface.py",
+                                    "type": "python",
+                                    "summary": "The 'surface.py' file defines classes for creating and managing 3D surface objects in Manim animations.",
+                                    "path": "manimlib/mobject/types/surface.py",
+                                    "importCount": 9
+                                },
+                                {
+                                    "name": "vectorized_mobject.py",
+                                    "type": "python",
+                                    "summary": "The primary purpose of 'manimlib/mobject/types/vectorized_mobject.py' is to define classes and methods for creating, manipulating, and rendering vectorized, multi-point mobjects for animations.",
+                                    "path": "manimlib/mobject/types/vectorized_mobject.py",
+                                    "importCount": 16
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "scene",
+                    "type": "directory",
+                    "summary": "The 'manimlib/scene' submodule is responsible for defining the core classes and functions that create, manage, and render scenes within the Manim animation library.",
+                    "path": "manimlib/scene/",
+                    "children": [
+                        {
+                            "name": "interactive_scene.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/scene/interactive_scene.py is to define classes and functions for creating scenes with interactive capabilities in the Manim library.",
+                            "path": "manimlib/scene/interactive_scene.py",
+                            "importCount": 13
+                        },
+                        {
+                            "name": "scene.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/scene/scene.py is to define the core classes and structures for creating and managing scenes in the Manim animation library.",
+                            "path": "manimlib/scene/scene.py",
+                            "importCount": 20
+                        },
+                        {
+                            "name": "scene_embed.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/scene/scene_embed.py is to facilitate embedding, launching, and reloading Manim scenes within interactive environments like IPython notebooks.",
+                            "path": "manimlib/scene/scene_embed.py",
+                            "importCount": 8
+                        },
+                        {
+                            "name": "scene_file_writer.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/scene/scene_file_writer.py is to manage the creation and handling of output files and directories for saving scene animations in the Manim library.",
+                            "path": "manimlib/scene/scene_file_writer.py",
+                            "importCount": 10
+                        }
+                    ]
+                },
+                {
+                    "name": "utils",
+                    "type": "directory",
+                    "summary": "The manimlib/utils submodule serves as a collection of utility functions that support various aspects of the Manim library, including debugging, data structure manipulation, directory management, family operations on mobjects, mathematical computations, and LaTeX handling.",
+                    "path": "manimlib/utils/",
+                    "children": [
+                        {
+                            "name": "bezier.py",
+                            "type": "python",
+                            "summary": "The Python file 'manimlib/utils/bezier.py' primarily provides functions for computing and manipulating Bezier curves and related interpolation methods.",
+                            "path": "manimlib/utils/bezier.py",
+                            "importCount": 4
+                        },
+                        {
+                            "name": "cache.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/cache.py is to provide decorators and functions for caching function outputs on disk to improve performance and manage cached data.",
+                            "path": "manimlib/utils/cache.py",
+                            "importCount": 6
+                        },
+                        {
+                            "name": "color.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/color.py is to provide utility functions for converting, manipulating, and generating colors in various formats for use in animations and visualizations.",
+                            "path": "manimlib/utils/color.py",
+                            "importCount": 5
+                        },
+                        {
+                            "name": "debug.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/debug.py is to provide utility functions for debugging and inspecting data structures within Manim.",
+                            "path": "manimlib/utils/debug.py",
+                            "importCount": 2
+                        },
+                        {
+                            "name": "dict_ops.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/dict_ops.py is to provide utility functions for manipulating dictionaries, such as merging them recursively.",
+                            "path": "manimlib/utils/dict_ops.py",
+                            "importCount": 1
+                        },
+                        {
+                            "name": "directories.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/directories.py is to provide functions for retrieving various directory paths used by the Manim library.",
+                            "path": "manimlib/utils/directories.py",
+                            "importCount": 3
+                        },
+                        {
+                            "name": "family_ops.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/family_ops.py is to provide utility functions for extracting and removing members of mobject families in Manim visualizations.",
+                            "path": "manimlib/utils/family_ops.py",
+                            "importCount": 2
+                        },
+                        {
+                            "name": "file_ops.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/file_ops.py is to provide utility functions for ensuring file and directory existence and locating files within the filesystem.",
+                            "path": "manimlib/utils/file_ops.py",
+                            "importCount": 3
+                        },
+                        {
+                            "name": "images.py",
+                            "type": "python",
+                            "summary": "The primary purpose of 'manimlib/utils/images.py' is to provide utility functions for handling image file paths and image inversion operations.",
+                            "path": "manimlib/utils/images.py",
+                            "importCount": 4
+                        },
+                        {
+                            "name": "iterables.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/iterables.py is to provide utility functions for working with iterables and sequences, such as creating lists, batching, resizing, and generating adjacent tuples.",
+                            "path": "manimlib/utils/iterables.py",
+                            "importCount": 2
+                        },
+                        {
+                            "name": "paths.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/paths.py is to provide functions for generating specific geometric paths such as straight lines and arcs.",
+                            "path": "manimlib/utils/paths.py",
+                            "importCount": 3
+                        },
+                        {
+                            "name": "rate_functions.py",
+                            "type": "python",
+                            "summary": "The Python file 'manimlib/utils/rate_functions.py' defines various rate functions for controlling animation pacing in the Manim library.",
+                            "path": "manimlib/utils/rate_functions.py",
+                            "importCount": 4
+                        },
+                        {
+                            "name": "shaders.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/shaders.py is to provide functions for loading, managing, and compiling shader programs used in rendering visual effects.",
+                            "path": "manimlib/utils/shaders.py",
+                            "importCount": 5
+                        },
+                        {
+                            "name": "simple_functions.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/simple_functions.py is to provide utility functions for mathematical operations and data manipulation.",
+                            "path": "manimlib/utils/simple_functions.py",
+                            "importCount": 3
+                        },
+                        {
+                            "name": "sounds.py",
+                            "type": "python",
+                            "summary": "The primary purpose of 'manimlib/utils/sounds.py' is to manage sound file paths and facilitate playing sound files across different operating systems.",
+                            "path": "manimlib/utils/sounds.py",
+                            "importCount": 4
+                        },
+                        {
+                            "name": "space_ops.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/space_ops.py is to provide utility functions for performing geometric and rotational operations in 3D space.",
+                            "path": "manimlib/utils/space_ops.py",
+                            "importCount": 5
+                        },
+                        {
+                            "name": "tex.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/tex.py is to provide utility functions for handling LaTeX-related symbols and environments within the Manim library.",
+                            "path": "manimlib/utils/tex.py",
+                            "importCount": 3
+                        },
+                        {
+                            "name": "tex_file_writing.py",
+                            "type": "python",
+                            "summary": "The primary purpose of manimlib/utils/tex_file_writing.py is to provide utilities for configuring and handling LaTeX file generation and rendering within the Manim library.",
+                            "path": "manimlib/utils/tex_file_writing.py",
+                            "importCount": 7
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Set up dimensions and margins
+        const margin = {top: 20, right: 120, bottom: 20, left: 120};
+        const width = window.innerWidth - margin.left - margin.right;
+        const height = window.innerHeight - 200 - margin.top - margin.bottom;
+
+        // Create SVG
+        const svg = d3.select("#tree-container")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom);
+
+        const g = svg.append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Create tree layout
+        const tree = d3.tree().size([height, width]);
+        const root = d3.hierarchy(treeData);
+
+        // Collapse all children initially except first level
+        root.children.forEach(collapse);
+
+        function collapse(d) {
+            if (d.children) {
+                d._children = d.children;
+                d._children.forEach(collapse);
+                d.children = null;
+            }
+        }
+
+        // Color mapping
+        const colorMap = {
+            directory: "#3498db",
+            python: "#27ae60",
+            config: "#f39c12",
+            other: "#95a5a6"
+        };
+
+        // Tooltip
+        const tooltip = d3.select("#tooltip");
+
+        // Update function
+        function update(source) {
+            const treeData = tree(root);
+            const nodes = treeData.descendants();
+            const links = treeData.descendants().slice(1);
+
+            // Normalize for fixed-depth
+            nodes.forEach(d => d.y = d.depth * 200);
+
+            // Update nodes
+            const node = g.selectAll(".node")
+                .data(nodes, d => d.id || (d.id = ++i));
+
+            // Enter new nodes
+            const nodeEnter = node.enter().append("g")
+                .attr("class", "node")
+                .attr("transform", d => `translate(${source.y0 || 0},${source.x0 || 0})`)
+                .on("click", click)
+                .on("mouseover", showTooltip)
+                .on("mouseout", hideTooltip);
+
+            // Add circles
+            nodeEnter.append("circle")
+                .attr("r", 1e-6)
+                .style("fill", d => d._children ? colorMap[d.data.type] : "#fff")
+                .style("stroke", d => colorMap[d.data.type]);
+
+            // Add import count badges for files with many imports
+            nodeEnter.filter(d => d.data.importCount && d.data.importCount > 10)
+                .append("circle")
+                .attr("r", 8)
+                .attr("cx", 15)
+                .attr("cy", -8)
+                .style("fill", "#e74c3c");
+
+            nodeEnter.filter(d => d.data.importCount && d.data.importCount > 10)
+                .append("text")
+                .attr("class", "import-badge")
+                .attr("x", 15)
+                .attr("y", -4)
+                .text(d => d.data.importCount);
+
+            // Add text labels
+            nodeEnter.append("text")
+                .attr("dy", ".35em")
+                .attr("x", d => d.children || d._children ? -13 : 13)
+                .style("text-anchor", d => d.children || d._children ? "end" : "start")
+                .text(d => {
+                    const icon = d.data.type === "directory" ? "📁" : 
+                                d.data.type === "python" ? "🐍" : 
+                                d.data.type === "config" ? "⚙️" : "📄";
+                    return `${icon} ${d.data.name}`;
+                });
+
+            // Update existing nodes
+            const nodeUpdate = nodeEnter.merge(node);
+
+            nodeUpdate.transition()
+                .duration(750)
+                .attr("transform", d => `translate(${d.y},${d.x})`);
+
+            nodeUpdate.select("circle")
+                .attr("r", 6)
+                .style("fill", d => d._children ? colorMap[d.data.type] : "#fff")
+                .style("stroke", d => colorMap[d.data.type]);
+
+            // Remove exiting nodes
+            const nodeExit = node.exit().transition()
+                .duration(750)
+                .attr("transform", d => `translate(${source.y},${source.x})`)
+                .remove();
+
+            nodeExit.select("circle").attr("r", 1e-6);
+            nodeExit.select("text").style("fill-opacity", 1e-6);
+
+            // Update links
+            const link = g.selectAll(".link")
+                .data(links, d => d.id);
+
+            const linkEnter = link.enter().insert("path", "g")
+                .attr("class", "link")
+                .attr("d", d => {
+                    const o = {x: source.x0 || 0, y: source.y0 || 0};
+                    return diagonal(o, o);
+                });
+
+            const linkUpdate = linkEnter.merge(link);
+
+            linkUpdate.transition()
+                .duration(750)
+                .attr("d", d => diagonal(d, d.parent));
+
+            const linkExit = link.exit().transition()
+                .duration(750)
+                .attr("d", d => {
+                    const o = {x: source.x, y: source.y};
+                    return diagonal(o, o);
+                })
+                .remove();
+
+            // Store old positions
+            nodes.forEach(d => {
+                d.x0 = d.x;
+                d.y0 = d.y;
+            });
+        }
+
+        // Diagonal path generator
+        function diagonal(s, d) {
+            return `M ${s.y} ${s.x}
+                    C ${(s.y + d.y) / 2} ${s.x},
+                      ${(s.y + d.y) / 2} ${d.x},
+                      ${d.y} ${d.x}`;
+        }
+
+        // Click handler
+        function click(event, d) {
+            if (d.children) {
+                d._children = d.children;
+                d.children = null;
+            } else {
+                d.children = d._children;
+                d._children = null;
+            }
+            update(d);
+        }
+
+        // Tooltip functions
+        function showTooltip(event, d) {
+            const typeClass = d.data.type;
+            const typeLabel = d.data.type === "directory" ? "Directory" :
+                             d.data.type === "python" ? "Python Module" :
+                             d.data.type === "config" ? "Config File" : "File";
+
+            tooltip.html(`
+                <h4>${d.data.name}</h4>
+                <div class="type ${typeClass}">${typeLabel}</div>
+                <div class="summary">${d.data.summary}</div>
+                <div class="meta">
+                    <strong>Path:</strong> ${d.data.path}<br>
+                    ${d.data.importCount ? `<strong>Import Count:</strong> ${d.data.importCount}<br>` : ''}
+                    <strong>Children:</strong> ${d.data.children ? d.data.children.length : 0}
+                </div>
+            `)
+            .style("opacity", 1)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 10) + "px");
+        }
+
+        function hideTooltip() {
+            tooltip.style("opacity", 0);
+        }
+
+        // Control functions
+        let i = 0;
+
+        window.expandAll = function() {
+            root.descendants().forEach(d => {
+                if (d._children) {
+                    d.children = d._children;
+                    d._children = null;
+                }
+            });
+            update(root);
+        };
+
+        window.collapseAll = function() {
+            root.descendants().forEach(d => {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                }
+            });
+            root.children = root._children;
+            root._children = null;
+            update(root);
+        };
+
+        window.resetZoom = function() {
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+            );
+        };
+
+        // Add zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.1, 3])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Initial render
+        root.x0 = height / 2;
+        root.y0 = 0;
+        update(root);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const newWidth = window.innerWidth - margin.left - margin.right;
+            const newHeight = window.innerHeight - 200 - margin.top - margin.bottom;
+            
+            svg.attr("width", newWidth + margin.left + margin.right)
+               .attr("height", newHeight + margin.top + margin.bottom);
+            
+            tree.size([newHeight, newWidth]);
+            update(root);
+        });
+    </script>
+</body>
+</html>

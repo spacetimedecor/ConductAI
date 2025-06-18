@@ -1,0 +1,6 @@
+<p>The <code>manimlib/scene/interactive_scene.py</code> file defines the <code>InteractiveScene</code> class, which extends the capabilities of standard scenes in the Manim library to support interactive features. This includes handling user input, real-time updates, and dynamic interactions within animations, enabling more engaging and responsive visualizations.</p>
+<ul>
+  <li>
+    <strong>InteractiveScene</strong>: This is the main class in the file, responsible for managing an interactive scene. It provides methods for capturing user interactions, updating scene objects dynamically, and integrating interactive controls into the animation workflow.
+  </li>
+</ul>

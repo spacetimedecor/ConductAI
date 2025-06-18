@@ -1,0 +1,12 @@
+<p>The <code>manimlib/mobject/frame.py</code> file defines classes related to rectangular frame objects used within the Manim library. These classes facilitate the creation of rectangular regions, including full-screen overlays and fade effects, which are useful for framing scenes, highlighting areas, or creating visual transitions in animations.</p>
+<ul>
+  <li>
+    <strong>ScreenRectangle</strong>: Represents a rectangle that can be positioned and scaled to frame a scene or specific objects within the scene.
+  </li>
+  <li>
+    <strong>FullScreenRectangle</strong>: A specialized version of <code>ScreenRectangle</code> that automatically covers the entire screen area.
+  </li>
+  <li>
+    <strong>FullScreenFadeRectangle</strong>: Extends <code>FullScreenRectangle</code> to include fading effects, useful for transitions or scene overlays.
+  </li>
+</ul>

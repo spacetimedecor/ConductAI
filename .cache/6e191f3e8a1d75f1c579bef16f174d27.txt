@@ -1,0 +1,30 @@
+<p>The <code>manimlib/mobject/geometry.py</code> file defines a variety of geometric mobjects used in the Manim animation library. These classes represent basic geometric shapes, arrows, lines, and other visual elements that can be manipulated and animated within scenes. The file provides the foundational objects necessary for constructing complex geometric visualizations and diagrams.</p>
+<ul>
+  <li><strong>TipableVMobject</strong>: A base class for VMobjects that can display tips or arrowheads, enabling the creation of arrow-like shapes with customizable tips.</li>
+  <li><strong>Arc</strong>: Represents a circular arc, allowing for the creation of curved segments of circles with adjustable angles and radii.</li>
+  <li><strong>ArcBetweenPoints</strong>: Creates an arc connecting two points, useful for illustrating relationships or paths between points.</li>
+  <li><strong>CurvedArrow</strong>: A curved arrow shape that combines an arc with an arrowhead, suitable for indicating directions along curved paths.</li>
+  <li><strong>CurvedDoubleArrow</strong>: Represents a double-headed curved arrow, often used to show bidirectional relationships.</li>
+  <li><strong>Circle</strong>: Defines a circle shape with customizable radius and stroke properties.</li>
+  <li><strong>Dot</strong> &amp; <strong>SmallDot</strong>: Small circular points used as markers or indicators within diagrams.</li>
+  <li><strong>Ellipse</strong>: Represents an elliptical shape, allowing for non-circular oval forms.</li>
+  <li><strong>AnnularSector</strong>: Defines a sector of an annulus (ring-shaped object), with adjustable inner and outer radii and angles.</li>
+  <li><strong>Sector</strong>: Represents a pie-slice-shaped sector of a circle, useful for highlighting parts of a circle.</li>
+  <li><strong>Annulus</strong>: Creates a ring-shaped object with specified inner and outer radii.</li>
+  <li><strong>Line</strong>: A basic straight line segment between two points, fundamental for constructing diagrams.</li>
+  <li><strong>DashedLine</strong>: A line with dashed styling, useful for indicating auxiliary or hidden elements.</li>
+  <li><strong>TangentLine</strong>: A line tangent to a given curve at a specific point.</li>
+  <li><strong>Elbow</strong>: An L-shaped connector, often used to connect two segments at a right angle.</li>
+  <li><strong>StrokeArrow</strong>: An arrow with stroke styling, used for emphasizing directions or flows.</li>
+  <li><strong>Arrow</strong>: A standard arrow shape with customizable tip and stroke properties.</li>
+  <li><strong>Vector</strong>: Represents a vector arrow, typically used to illustrate directions and magnitudes.</li>
+  <li><strong>CubicBezier</strong>: Defines a cubic Bezier curve, allowing for smooth, curved paths with control points.</li>
+  <li><strong>Polygon</strong>: A multi-sided shape defined by a list of vertices.</li>
+  <li><strong>Polyline</strong>: A series of connected line segments, useful for complex shapes and paths.</li>
+  <li><strong>RegularPolygon</strong>: A polygon with all sides and angles equal, such as equilateral triangles and squares.</li>
+  <li><strong>Triangle</strong>: A specific polygon with three sides, often used for simple geometric diagrams.</li>
+  <li><strong>ArrowTip</strong>: The visual tip of an arrow, customizable for different arrow styles.</li>
+  <li><strong>Rectangle</strong>: A four-sided shape with right angles, used for framing or highlighting areas.</li>
+  <li><strong>Square</strong>: A special case of Rectangle with equal sides.</li>
+  <li><strong>RoundedRectangle</strong>: A rectangle with rounded corners, providing a softer visual appearance.</li>
+</ul>

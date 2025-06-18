@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/module_loader.py is to load, import, and reload modules from files while managing their dependencies and imports.</p>

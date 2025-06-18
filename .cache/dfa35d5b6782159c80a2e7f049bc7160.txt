@@ -1,0 +1,4 @@
+<p>The <code>manimlib/event_handler/event_type.py</code> file defines the <code>EventType</code> class, which enumerates the various types of input events that can be handled within the system. This class provides a standardized set of event identifiers used throughout the event handling architecture, facilitating consistent event recognition and processing.</p>
+<ul>
+  <li><strong>EventType</strong>: An enumeration class that lists all supported event types such as mouse movements, mouse clicks, key presses, and scroll events. Each member of this class corresponds to a specific kind of user input event, represented as a string.</li>
+</ul>

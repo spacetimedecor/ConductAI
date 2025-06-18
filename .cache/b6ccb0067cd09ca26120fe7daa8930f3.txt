@@ -1,0 +1,18 @@
+<p>The <code>dot_cloud.py</code> file defines classes related to rendering collections of dots or points in a 3D space, primarily for visual effects in animations. It includes classes for creating customizable dot clouds, glowing dots, and single true dots, with methods to manipulate their appearance, positioning, and rendering properties.</p>
+<ul>
+  <li>
+    <strong>DotCloud</strong>: The main class representing a cloud of dots with customizable size, glow, and grid placement. It manages point data, radii, glow effects, and provides methods for scaling, setting radii, and converting to 3D shapes.
+  </li>
+  <li>
+    <strong>GlowDots</strong>: A subclass of <code>DotCloud</code> that creates dots with a glow effect, initialized with specific glow parameters and color.
+  </li>
+  <li>
+    <strong>TrueDot</strong>: A subclass of <code>DotCloud</code> representing a single, centered dot at a specified position.
+  </li>
+  <li>
+    <strong>DotCloud.init_uniforms</strong>: Initializes shader uniforms related to glow and anti-aliasing effects for rendering.
+  </li>
+  <li>
+    <strong>TrueDot.__init__</strong>: Constructor that creates a <code>TrueDot</code> at a specified center point.
+  </li>
+</ul>

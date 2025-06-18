@@ -1,0 +1,1 @@
+<p>The 'manimlib/event_handler' submodule is responsible for managing user input events within the Manim library. It defines classes such as EventDispatcher, EventListener, and EventType to facilitate the detection, handling, and dispatching of various user interactions, ensuring that events are processed efficiently and appropriately during animations and scene interactions.</p>

@@ -1,0 +1,12 @@
+<p>The <code>manimlib/animation/update.py</code> file defines classes that facilitate updating the state of objects during animations in the Manim library. These classes enable dynamic modifications of objects based on functions or parameters, allowing for flexible and customizable animations.</p>
+<ul>
+  <li>
+    <strong>UpdateFromFunc</strong>: This class updates an object by applying a user-defined function at each frame, enabling custom per-frame modifications.
+  </li>
+  <li>
+    <strong>UpdateFromAlphaFunc</strong>: This class updates an object based on an alpha parameter that progresses from 0 to 1, allowing for smooth, parameterized updates such as easing effects.
+  </li>
+  <li>
+    <strong>MaintainPositionRelativeTo</strong>: This class maintains the position of an object relative to another object, ensuring consistent spatial relationships during animations.
+  </li>
+</ul>

@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/debug.py is to provide utility functions for debugging and inspecting data structures within Manim.</p>

@@ -1,0 +1,9 @@
+<p>The <code>manimlib/mobject/coordinate_systems.py</code> file defines classes responsible for creating and managing various coordinate systems and grids used within Manim animations. These coordinate systems serve as visual frameworks that facilitate the placement and alignment of objects in 2D and 3D spaces, enabling precise and flexible scene construction.</p>
+<ul>
+  <li><strong>CoordinateSystem</strong>: The base class that provides common functionality for coordinate systems, including methods for transforming points and managing axes.</li>
+  <li><strong>Axes</strong>: Represents a 2D coordinate axes system with labeled ticks and grid lines, useful for plotting functions or geometric diagrams.</li>
+  <li><strong>ThreeDAxes</strong>: Extends <code>Axes</code> to 3D space, allowing for the creation of three-dimensional coordinate grids with labeled axes and tick marks.</li>
+  <li><strong>NumberPlane</strong>: A specific type of 2D grid with numbered axes, often used as a background grid for graphing and visualizations.</li>
+  <li><strong>ComplexPlane</strong>: A specialized coordinate system representing the complex plane, typically used for visualizing complex functions or mappings.</li>
+  <li><strong>full_range_specifier</strong>: A utility function that helps specify ranges for axes or grids, facilitating flexible configuration of coordinate systems.</li>
+</ul>

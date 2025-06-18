@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/directories.py is to provide functions for retrieving various directory paths used by the Manim library.</p>

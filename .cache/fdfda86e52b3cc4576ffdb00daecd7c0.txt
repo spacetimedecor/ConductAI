@@ -1,0 +1,15 @@
+<p>The <code>manimlib/extract_scene.py</code> file is responsible for extracting, managing, and processing scene classes within the Manim animation library. It provides utilities to identify scene classes, determine scene hierarchies, and facilitate user interaction for selecting scenes to render. Additionally, it includes functions to handle scene file modules, compute total frames for animations, and insert necessary embed lines into modules to enable scene embedding.</p>
+<ul>
+  <li><strong>BlankScene</strong>: A class representing a minimal or placeholder scene, likely used as a default or base scene.</li>
+  <li><strong>is_child_scene</strong>: Determines whether a given scene is a child scene within a hierarchy, aiding in scene organization.</li>
+  <li><strong>prompt_user_for_choice</strong>: Interacts with the user to select scenes or options, facilitating manual scene selection.</li>
+  <li><strong>compute_total_frames</strong>: Calculates the total number of frames for a set of scenes, essential for rendering and timing.</li>
+  <li><strong>scene_from_class</strong>: Creates a scene instance from a scene class, enabling scene instantiation based on class references.</li>
+  <li><strong>note_missing_scenes</strong>: Logs or notes scenes that are missing or not found, assisting in debugging or scene management.</li>
+  <li><strong>get_scenes_to_render</strong>: Retrieves the list of scenes designated for rendering, based on user input or configuration.</li>
+  <li><strong>get_scene_classes</strong>: Extracts scene classes from a module, enabling dynamic scene discovery.</li>
+  <li><strong>get_indent</strong>: Utility to determine indentation levels, likely used for parsing or formatting code.</li>
+  <li><strong>insert_embed_line_to_module</strong>: Inserts embed lines into scene modules to facilitate embedding scenes in interactive environments.</li>
+  <li><strong>get_module</strong>: Loads and returns a Python module, typically a scene file, for further processing.</li>
+  <li><strong>main</strong>: The main entry point of the script, orchestrating the scene extraction, user interaction, and scene management processes.</li>
+</ul>

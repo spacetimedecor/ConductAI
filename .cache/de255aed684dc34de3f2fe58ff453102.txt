@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/simple_functions.py is to provide utility functions for mathematical operations and data manipulation. </p>

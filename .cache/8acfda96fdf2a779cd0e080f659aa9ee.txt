@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/interactive.py is to define classes and functions for creating interactive control elements and interfaces for manipulating mobjects during visualizations.</p>

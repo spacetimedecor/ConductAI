@@ -1,0 +1,12 @@
+<p>The <code>manimlib/animation/creation.py</code> file contains classes that define various creation and drawing animations within the Manim library. These animations include showing objects, drawing borders, writing text, and revealing submobjects in different ways. The classes in this file are used to animate the appearance and construction of mathematical objects and scenes, providing visual effects that enhance the presentation of mathematical concepts.</p>
+
+<ul>
+  <li><strong>ShowPartial</strong>: Handles the animation of showing a part of a mobject, with an option to match the start of the animation.</li>
+  <li><strong>ShowCreation</strong>: Animates the drawing or creation of a mobject, typically by drawing its outline or shape.</li>
+  <li><strong>Uncreate</strong>: Reverses the creation process, visually erasing a mobject from the scene.</li>
+  <li><strong>DrawBorderThenFill</strong>: Animates the drawing of a border around a mobject followed by filling it in.</li>
+  <li><strong>Write</strong>: Animates the process of writing text or other mobjects onto the scene.</li>
+  <li><strong>ShowIncreasingSubsets</strong>: Reveals submobjects of a group incrementally, creating a step-by-step appearance effect.</li>
+  <li><strong>ShowSubmobjectsOneByOne</strong>: Animates the sequential display of submobjects within a group, one after another.</li>
+  <li><strong>AddTextWordByWord</strong>: Animates the addition of text word by word, creating a typing or writing effect.</li>
+</ul>

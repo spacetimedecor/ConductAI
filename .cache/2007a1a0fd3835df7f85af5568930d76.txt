@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/iterables.py is to provide utility functions for working with iterables and sequences, such as creating lists, batching, resizing, and generating adjacent tuples.</p>

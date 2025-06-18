@@ -1,0 +1,4 @@
+<p>The <code>manimlib/window.py</code> file defines the <code>Window</code> class, which manages the rendering window for animations created with Manim. This includes handling the creation, configuration, and display of the graphical window where animations are rendered, as well as managing user interactions and display updates.</p>
+<ul>
+  <li><strong>Window</strong>: The main class responsible for creating and managing the rendering window, including setting up the display, handling user input, and updating the visual output during animations.</li>
+</ul>

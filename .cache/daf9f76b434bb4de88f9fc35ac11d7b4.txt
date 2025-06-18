@@ -1,0 +1,12 @@
+<p>This file, <code>manimlib/utils/sounds.py</code>, provides utility functions for handling sound files within the Manim library. Its primary responsibilities include locating sound files on the filesystem and playing them using the system's default audio player. These functions facilitate integrating sound effects into animations and scenes by abstracting file path resolution and playback mechanisms.</p>
+
+<ul>
+  <li>
+    <strong>get_full_sound_file_path(sound_file_name)</strong>: 
+    <br/>Returns the absolute path to a sound file by searching in the designated sounds directory, considering common audio file extensions (.wav, .mp3). This function simplifies locating sound assets within the project structure.
+  </li>
+  <li>
+    <strong>play_sound(sound_file)</strong>: 
+    <br/>Plays a specified sound file using the system's native audio player, supporting Windows, macOS, and Linux. It abstracts platform-specific commands to ensure compatibility across different operating systems.
+  </li>
+</ul>

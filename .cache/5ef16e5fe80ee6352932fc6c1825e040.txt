@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/three_dimensions.py is to define 3D geometric objects and related functions for creating three-dimensional visualizations in Manim.</p>

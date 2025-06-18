@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / C extensions
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Temporary and generated files
+.temp/
+generated_docs/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/

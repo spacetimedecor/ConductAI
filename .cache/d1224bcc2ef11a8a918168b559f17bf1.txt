@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/space_ops.py is to provide utility functions for performing geometric and rotational operations in 3D space.</p>

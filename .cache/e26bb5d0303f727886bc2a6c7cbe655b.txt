@@ -1,0 +1,12 @@
+<p>The <code>manimlib/utils/images.py</code> file provides utility functions for handling image file paths and image data transformations within the Manim animation library. It facilitates retrieving full file paths for raster and vector images, as well as performing image inversion operations, which are essential for preparing images for rendering and manipulation in animations.</p>
+<ul>
+  <li>
+    <strong>get_full_raster_image_path</strong>: Returns the absolute file path for a raster image given its filename, ensuring the image can be correctly located within the project's directory structure.
+  </li>
+  <li>
+    <strong>get_full_vector_image_path</strong>: Provides the absolute file path for a vector image, aiding in the retrieval and usage of scalable images within animations.
+  </li>
+  <li>
+    <strong>invert_image</strong>: Performs an inversion of the image's pixel data, typically to create a negative or complementary visual effect, useful in various visual transformations.
+  </li>
+</ul>

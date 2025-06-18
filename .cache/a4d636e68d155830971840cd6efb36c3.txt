@@ -1,0 +1,1 @@
+<p>The 'manimlib/animation/growing.py' file defines animations for growing objects from specific points, centers, edges, or arrows in the Manim library.</p>

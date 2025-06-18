@@ -1,0 +1,1 @@
+<p>The Python file 'manimlib/camera/camera_frame.py' defines the CameraFrame class, which manages the camera's position, orientation, and transformations within a scene in Manim.</p>

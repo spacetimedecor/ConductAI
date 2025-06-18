@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/color.py is to provide utility functions for converting, manipulating, and generating colors in various formats for use in animations and visualizations.</p>

@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/tex.py is to provide utility functions for handling LaTeX-related symbols and environments within the Manim library.</p>

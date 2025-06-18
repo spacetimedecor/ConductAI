@@ -1,0 +1,272 @@
+```html
+<p>This code demonstrates how to configure Manim's file writer to render a complex animation into a high-quality video file. It sets up the necessary parameters for video output, including the video codec and pixel format, and then simulates the beginning and end of an animation writing process.</p>
+<pre><code><span class="c1"># This is a simplified example demonstrating the configuration of the file writer.</span>
+<span class="c1"># In a full Manim application, these configurations would typically be handled</span>
+<span class="c1"># by the Manim library's internal scene rendering process.</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">SimpleNamespace</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="c1"># Assume these are available from the Manim environment</span>
+<span class="k">class</span> <span class="nc">Scene</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">SimpleNamespace</span><span class="p">(</span>
+            <span class="n">fps</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+            <span class="n">get_pixel_shape</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
+        <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ProgressDisplay</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># Mock for demonstration</span>
+
+<span class="c1"># Mock functions for config and args, as they would be passed to update_file_writer_config</span>
+<span class="k">def</span> <span class="nf">get_file_ext</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;.mp4&quot;</span>
+
+<span class="k">def</span> <span class="nf">get_output_directory</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;./output_videos&quot;</span>
+
+<span class="c1"># --- Start of ManimLib Context Code ---</span>
+
+<span class="k">class</span> <span class="nc">SceneFileWriter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scene</span><span class="p">:</span> <span class="n">Scene</span><span class="p">,</span>
+            <span class="n">write_to_movie</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">subdivide_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">png_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;RGBA&quot;</span><span class="p">,</span>
+            <span class="n">save_last_frame</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">movie_file_extension</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.mp4&quot;</span><span class="p">,</span>
+            <span class="n">output_directory</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+            <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">open_file_upon_completion</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">show_file_location_upon_completion</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">total_frames</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">progress_description_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span>
+            <span class="n">ffmpeg_bin</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ffmpeg&quot;</span><span class="p">,</span>
+            <span class="n">video_codec</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;libx264&quot;</span><span class="p">,</span>
+            <span class="n">pixel_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;yuv420p&quot;</span><span class="p">,</span>
+            <span class="n">saturation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">:</span> <span class="n">Scene</span> <span class="o">=</span> <span class="n">scene</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_to_movie</span> <span class="o">=</span> <span class="n">write_to_movie</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subdivide_output</span> <span class="o">=</span> <span class="n">subdivide_output</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">png_mode</span> <span class="o">=</span> <span class="n">png_mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_last_frame</span> <span class="o">=</span> <span class="n">save_last_frame</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">movie_file_extension</span> <span class="o">=</span> <span class="n">movie_file_extension</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span> <span class="o">=</span> <span class="n">output_directory</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span> <span class="o">=</span> <span class="n">file_name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_file_upon_completion</span> <span class="o">=</span> <span class="n">open_file_upon_completion</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_file_location_upon_completion</span> <span class="o">=</span> <span class="n">show_file_location_upon_completion</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">quiet</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">total_frames</span> <span class="o">=</span> <span class="n">total_frames</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_description_len</span> <span class="o">=</span> <span class="n">progress_description_len</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ffmpeg_bin</span> <span class="o">=</span> <span class="n">ffmpeg_bin</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span> <span class="o">=</span> <span class="n">video_codec</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pixel_format</span> <span class="o">=</span> <span class="n">pixel_format</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">saturation</span> <span class="o">=</span> <span class="n">saturation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+
+            <span class="c1"># State during file writing</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writing_process</span><span class="p">:</span> <span class="n">sp</span><span class="o">.</span><span class="n">Popen</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_display</span><span class="p">:</span> <span class="n">ProgressDisplay</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ended_with_interrupt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_output_directories</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_audio</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">init_output_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Create the output directory if it doesn't exist</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">init_audio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c1"># Mock for demonstration</span>
+
+    <span class="k">def</span> <span class="nf">get_next_partial_movie_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># In a real scenario, this would generate unique paths for partial movies</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span><span class="p">,</span> <span class="s2">&quot;partial_movie&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">movie_file_extension</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_progress_display_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_display</span><span class="p">:</span>
+            <span class="k">pass</span> <span class="c1"># Mock for demonstration</span>
+
+    <span class="k">def</span> <span class="nf">open_movie_pipe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stem</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">final_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">temp_file_path</span> <span class="o">=</span> <span class="n">stem</span> <span class="o">+</span> <span class="s2">&quot;_temp&quot;</span> <span class="o">+</span> <span class="n">ext</span>
+
+            <span class="n">fps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">fps</span>
+            <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">get_pixel_shape</span><span class="p">()</span>
+
+            <span class="n">vf_arg</span> <span class="o">=</span> <span class="s1">&#39;vflip&#39;</span>
+            <span class="n">vf_arg</span> <span class="o">+=</span> <span class="nf">f&#39;,eq=saturation=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">saturation</span><span class="si">}</span><span class="nf">:gamma=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="si">}</span><span class="nf">&#39;</span>
+
+            <span class="n">command</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ffmpeg_bin</span><span class="p">,</span>
+                <span class="s1">&#39;-y&#39;</span><span class="p">,</span>  <span class="c1"># overwrite output file if it exists</span>
+                <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;rawvideo&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="nf">f&#39;</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="nf">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="nf">&#39;</span><span class="p">,</span>  <span class="c1"># size of one frame</span>
+                <span class="s1">&#39;-pix_fmt&#39;</span><span class="p">,</span> <span class="s1">&#39;rgba&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fps</span><span class="p">),</span>  <span class="c1"># frames per second</span>
+                <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>  <span class="c1"># The input comes from a pipe</span>
+                <span class="s1">&#39;-vf&#39;</span><span class="p">,</span> <span class="n">vf_arg</span><span class="p">,</span>
+                <span class="s1">&#39;-an&#39;</span><span class="p">,</span>  <span class="c1"># Tells ffmpeg not to expect any audio</span>
+                <span class="s1">&#39;-loglevel&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="p">:</span>
+                <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;-vcodec&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixel_format</span><span class="p">:</span>
+                <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="s1">&#39;-pix_fmt&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixel_format</span><span class="p">]</span>
+            <span class="n">command</span> <span class="o">+=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_file_path</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writing_process</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_display</span> <span class="o">=</span> <span class="n">ProgressDisplay</span><span class="p">(</span>
+                    <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_frames</span><span class="p">),</span>
+                    <span class="n">leave</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">ascii</span><span class="o">=</span><span class="kc">True</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">dynamic_ncols</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_progress_display_description</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">begin_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdivide_output</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_to_movie</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">open_movie_pipe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_next_partial_movie_path</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">close_movie_pipe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">writing_process</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writing_process</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writing_process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">writing_process</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="c1"># Simulate moving temp file to final file</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_file_path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_file_path</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="nf">f&quot;Video saved to: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">final_file_path</span><span class="si">}</span><span class="nf">&quot;</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">end_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdivide_output</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_to_movie</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">close_movie_pipe</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">update_file_writer_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">SimpleNamespace</span><span class="p">):</span>
+    <span class="n">file_writer_config</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;file_writer&quot;</span><span class="p">]</span>
+    <span class="n">file_writer_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="n">write_to_movie</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">skip_animations</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">write_file</span><span class="p">),</span>
+        <span class="n">subdivide_output</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">subdivide</span><span class="p">,</span>
+        <span class="n">save_last_frame</span><span class="o">=</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">skip_animations</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">write_file</span><span class="p">),</span>
+        <span class="n">png_mode</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">transparent</span> <span class="k">else</span> <span class="s2">&quot;RGB&quot;</span><span class="p">),</span>
+        <span class="n">movie_file_extension</span><span class="o">=</span><span class="n">get_file_ext</span><span class="p">(</span><span class="n">args</span><span class="p">),</span>
+        <span class="n">output_directory</span><span class="o">=</span><span class="n">get_output_directory</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span>
+        <span class="n">file_name</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span>
+        <span class="n">open_file_upon_completion</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">open</span><span class="p">,</span>
+        <span class="n">show_file_location_upon_completion</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">finder</span><span class="p">,</span>
+        <span class="n">quiet</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">quiet</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">vcodec</span><span class="p">:</span>
+        <span class="n">file_writer_config</span><span class="o">.</span><span class="n">video_codec</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">vcodec</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">transparent</span><span class="p">:</span>
+        <span class="n">file_writer_config</span><span class="o">.</span><span class="n">video_codec</span> <span class="o">=</span> <span class="s1">&#39;prores_ks&#39;</span>
+        <span class="n">file_writer_config</span><span class="o">.</span><span class="n">pixel_format</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">gif</span><span class="p">:</span>
+        <span class="n">file_writer_config</span><span class="o">.</span><span class="n">video_codec</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">pix_fmt</span><span class="p">:</span>
+        <span class="n">file_writer_config</span><span class="o">.</span><span class="n">pixel_format</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">pix_fmt</span>
+
+<span class="c1"># --- End of ManimLib Context Code ---</span>
+
+<span class="c1"># 1. Set up mock configuration and command-line arguments</span>
+<span class="n">mock_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;file_writer&quot;</span><span class="p">:</span> <span class="n">SimpleNamespace</span><span class="p">(</span>
+        <span class="n">write_to_movie</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">subdivide_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">save_last_frame</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">png_mode</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="p">,</span>
+        <span class="n">movie_file_extension</span><span class="o">=</span><span class="s2">&quot;.mp4&quot;</span><span class="p">,</span>
+        <span class="n">output_directory</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+        <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">open_file_upon_completion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_file_location_upon_completion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">video_codec</span><span class="o">=</span><span class="s2">&quot;libx264&quot;</span><span class="p">,</span>
+        <span class="n">pixel_format</span><span class="o">=</span><span class="s2">&quot;yuv420p&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">mock_args</span> <span class="o">=</span> <span class="n">SimpleNamespace</span><span class="p">(</span>
+    <span class="n">skip_animations</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">write_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Crucial for writing to movie</span>
+    <span class="n">subdivide</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Enable subdividing output for animation segments</span>
+    <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">gif</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">vcodec</span><span class="o">=</span><span class="s2">&quot;libx264&quot;</span><span class="p">,</span>  <span class="c1"># High-quality video codec</span>
+    <span class="n">pix_fmt</span><span class="o">=</span><span class="s2">&quot;yuv420p&quot;</span><span class="p">,</span>  <span class="c1"># Standard pixel format for broad compatibility</span>
+    <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;complex_animation_output&quot;</span><span class="p">,</span>
+    <span class="n">open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">finder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Update the file writer configuration based on the arguments</span>
+<span class="n">update_file_writer_config</span><span class="p">(</span><span class="n">mock_config</span><span class="p">,</span> <span class="n">mock_args</span><span class="p">)</span>
+
+<span class="c1"># Extract the configured parameters for SceneFileWriter</span>
+<span class="n">fw_config</span> <span class="o">=</span> <span class="n">mock_config</span><span class="p">[</span><span class="s2">&quot;file_writer&quot;</span><span class="p">]</span>
+
+<span class="c1"># 3. Initialize SceneFileWriter with the desired video output settings</span>
+<span class="c1"># In a real Manim scene, 'self' would be the Scene instance.</span>
+<span class="n">my_scene</span> <span class="o">=</span> <span class="n">Scene</span><span class="p">()</span>
+<span class="n">file_writer</span> <span class="o">=</span> <span class="n">SceneFileWriter</span><span class="p">(</span>
+    <span class="n">scene</span><span class="o">=</span><span class="n">my_scene</span><span class="p">,</span>
+    <span class="n">write_to_movie</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">write_to_movie</span><span class="p">,</span>
+    <span class="n">subdivide_output</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">subdivide_output</span><span class="p">,</span>
+    <span class="n">png_mode</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">png_mode</span><span class="p">,</span>
+    <span class="n">save_last_frame</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">save_last_frame</span><span class="p">,</span>
+    <span class="n">movie_file_extension</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">movie_file_extension</span><span class="p">,</span>
+    <span class="n">output_directory</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">output_directory</span><span class="p">,</span>
+    <span class="n">file_name</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span>
+    <span class="n">open_file_upon_completion</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">open_file_upon_completion</span><span class="p">,</span>
+    <span class="n">show_file_location_upon_completion</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">show_file_location_upon_completion</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">quiet</span><span class="p">,</span>
+    <span class="n">total_frames</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>  <span class="c1"># Example: 5 seconds at 60fps</span>
+    <span class="n">video_codec</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">video_codec</span><span class="p">,</span>
+    <span class="n">pixel_format</span><span class="o">=</span><span class="n">fw_config</span><span class="o">.</span><span class="n">pixel_format</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Simulate the animation process</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting animation rendering...&quot;</span><span class="p">)</span>
+<span class="n">file_writer</span><span class="o">.</span><span class="n">begin_animation</span><span class="p">()</span>
+
+<span class="c1"># In a real Manim scene, frames would be rendered and written here.</span>
+<span class="c1"># For this example, we just simulate the process.</span>
+<span class="k">if</span> <span class="n">file_writer</span><span class="o">.</span><span class="n">writing_process</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FFmpeg process started. Simulating frame writing...&quot;</span><span class="p">)</span>
+    <span class="c1"># Simulate writing some dummy frame data</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span> <span class="c1"># Write 10 dummy frames</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># A real frame would be width * height * 4 bytes (RGBA)</span>
+            <span class="n">dummy_frame</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">1920</span> <span class="o">*</span> <span class="mi">1080</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="n">file_writer</span><span class="o">.</span><span class="n">writing_process</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dummy_frame</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">BrokenPipeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Broken pipe: FFmpeg process might have terminated early.&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simulated frame writing complete.&quot;</span><span class="p">)</span>
+
+<span class="n">file_writer</span><span class="o">.</span><span class="n">end_animation</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Animation rendering finished.&quot;</span><span class="p">)</span>
+
+<span class="c1"># Clean up the created dummy file and directory for demonstration purposes</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_writer</span><span class="o">.</span><span class="n">final_file_path</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_writer</span><span class="o">.</span><span class="n">final_file_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nf">f&quot;Cleaned up </span><span class="si">{</span><span class="n">file_writer</span><span class="o">.</span><span class="n">final_file_path</span><span class="si">}</span><span class="nf">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_writer</span><span class="o">.</span><span class="n">output_directory</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">file_writer</span><span class="o">.</span><span class="n">output_directory</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">rmdir</span><span class="p">(</span><span class="n">file_writer</span><span class="o">.</span><span class="n">output_directory</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nf">f&quot;Cleaned up directory </span><span class="si">{</span><span class="n">file_writer</span><span class="o">.</span><span class="n">output_directory</span><span class="si">}</span><span class="nf">&quot;</span><span class="p">)</span>
+</code></pre>
+```

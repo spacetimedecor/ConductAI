@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/svg/special_tex.py' is to define classes for creating and managing special LaTeX-based SVG text objects for animations.</p>

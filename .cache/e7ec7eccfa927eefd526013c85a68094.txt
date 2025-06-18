@@ -1,0 +1,15 @@
+<p>The <code>manimlib/scene/scene_embed.py</code> file provides classes and methods to facilitate embedding and interactive control of scenes within environments like IPython or Jupyter notebooks. Its primary purpose is to enable scene reloading and interaction without restarting the entire environment, thus supporting rapid development and iteration of animations created with the Manim library.</p>
+<ul>
+  <li>
+    <strong>InteractiveSceneEmbed</strong>: This class likely manages the embedding of scenes into interactive environments, providing methods to launch and reload scenes dynamically.
+  </li>
+  <li>
+    <strong>CheckpointManager</strong>: This class probably handles saving and restoring scene states, allowing users to revert to previous points during scene development.
+  </li>
+  <li>
+    <strong>launch()</strong>: A method that initiates an interactive session or shell, enabling users to interact with the scene directly.
+  </li>
+  <li>
+    <strong>reload_scene(embed_line=None)</strong>: A method that reloads the current scene in the embedded environment, allowing for quick updates during development. It resets the scene state, optionally starting from a specific line number, and maintains the GUI open during the reload process.
+  </li>
+</ul>

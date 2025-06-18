@@ -1,0 +1,1 @@
+<p>The 'manimlib/event_handler/event_listner.py' file defines the EventListener class for representing and managing individual event callbacks associated with objects and event types.</p>

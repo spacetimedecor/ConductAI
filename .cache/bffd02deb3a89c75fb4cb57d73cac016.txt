@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/window.py is to define the Window class responsible for managing the rendering window and display settings in Manim.</p>

@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/tex_file_writing.py is to provide utilities for configuring and handling LaTeX file generation and rendering within the Manim library.</p>

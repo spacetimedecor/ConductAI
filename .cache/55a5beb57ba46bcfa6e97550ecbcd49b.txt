@@ -1,0 +1,12 @@
+<p>The <code>manimlib/mobject/numbers.py</code> file defines classes and functions related to numerical representations within Manim visualizations. It provides mechanisms to create and display numbers such as integers and decimal numbers, which can be used in mathematical animations and diagrams.</p>
+<ul>
+  <li>
+    <strong>DecimalNumber</strong>: A class that represents decimal numbers as mobjects, allowing for customizable display, formatting, and positioning of decimal values in animations.
+  </li>
+  <li>
+    <strong>Integer</strong>: A class for representing integer values as mobjects, facilitating their inclusion and animation within mathematical scenes.
+  </li>
+  <li>
+    <strong>char_to_cahced_mob</strong>: A utility function that likely converts characters to cached mobject representations, optimizing the rendering and reuse of number characters in animations.
+  </li>
+</ul>

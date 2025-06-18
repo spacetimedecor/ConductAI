@@ -1,0 +1,1 @@
+<p>The manimlib/animation/movement.py file defines classes and functions for animating the movement and transformation of objects within the Manim library.</p>

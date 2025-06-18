@@ -1,0 +1,4 @@
+<p>The <code>manimlib/animation/rotation.py</code> file defines classes responsible for creating rotation animations within the Manim library. It primarily introduces the <code>Rotate</code> class, which facilitates rotating objects (mobjects) around specified axes or edges, enabling dynamic visual transformations in animations.</p>
+<ul>
+  <li><strong>Rotate</strong>: This class inherits from <code>Rotating</code> and provides a convenient interface for rotating a mobject by a specified angle around a given axis or edge. It allows customization of the rotation's duration, rate function, and the point or edge about which the rotation occurs.</li>
+</ul>

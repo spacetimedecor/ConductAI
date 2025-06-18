@@ -1,0 +1,1 @@
+<p>The manimlib/mobject/number_line.py file defines a NumberLine class for creating and managing number line visualizations in Manim.</p>

@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/types/image_mobject.py' is to define a class for representing and rendering image objects within animations.</p>

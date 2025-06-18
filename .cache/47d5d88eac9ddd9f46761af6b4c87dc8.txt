@@ -1,0 +1,24 @@
+<p>The <code>manimlib/utils/color.py</code> file provides a collection of utility functions for color manipulation and conversion within the Manim animation library. Its primary purpose is to facilitate conversions between different color representations (such as RGB, RGBA, HEX, and integer formats), as well as to perform color operations like inversion, interpolation, and generating color gradients. These functions enable seamless handling of colors in various formats, supporting both visual consistency and flexibility in animations and visualizations.</p>
+
+<ul>
+  <li><b>color_to_rgb</b>: Converts a color to an RGB tuple or array.</li>
+  <li><b>color_to_rgba</b>: Converts a color to an RGBA array, including opacity.</li>
+  <li><b>rgb_to_color</b>: Creates a color object from an RGB tuple or array.</li>
+  <b>rgba_to_color</b>: Converts an RGBA array to a color object.</li>
+  <b>color_to_hex</b>: Converts a color to its hexadecimal string representation.</li>
+  <b>hex_to_rgb</b>: Converts a HEX string to an RGB tuple.</li>
+  <b>invert_color</b>: Returns the inverse of a given color.</li>
+  <b>color_to_int_rgb</b>: Converts a color to an integer RGB array.</li>
+  <b>color_to_int_rgba</b>: Converts a color to an integer RGBA array, including opacity.</li>
+  <b>hex_to_int</b>: Converts a HEX string to an integer color value.</li>
+  <b>int_to_hex</b>: Converts an integer color value to a HEX string.</li>
+  <b>color_gradient</b>: Generates a gradient of colors between specified colors.</li>
+  <b>interpolate_color</b>: Interpolates between two colors.</li>
+  <b>interpolate_color_by_hsl</b>: Interpolates between two colors in HSL space.</li>
+  <b>average_color</b>: Computes the average of multiple colors.</li>
+  <b>random_color</b>: Generates a random color.</li>
+  <b>random_bright_color</b>: Generates a bright random color.</li>
+  <b>get_colormap_from_colors</b>: Creates a colormap from a list of colors.</li>
+  <b>get_color_map</b>: Retrieves a colormap object.</li>
+  <b>get_colormap_list</b>: Lists available colormaps.</li>
+</ul>

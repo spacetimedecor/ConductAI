@@ -1,0 +1,1 @@
+<p>The Python file 'manimlib/utils/bezier.py' primarily provides functions for computing and manipulating Bezier curves and related interpolation methods.</p>

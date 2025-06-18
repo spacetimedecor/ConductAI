@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/mobject_update_utils.py is to provide utility functions for updating and managing mobject updaters and animations in Manim visualizations.</p>

@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/matrix.py is to define classes and functions for creating and manipulating matrix objects in Manim visualizations.</p>

@@ -1,0 +1,7 @@
+<p>The <code>manimlib/utils/paths.py</code> file is responsible for defining utility functions that generate and manipulate file paths related to the Manim library. These functions facilitate creating specific paths along geometric paths, such as straight lines and arcs, which are useful for animations and geometric computations within Manim.</p>
+<ul>
+  <li><strong>straight_path</strong>: Generates a straight-line path between two points, useful for linear animations or movements.</li>
+  <li><strong>path_along_arc</strong>: Creates a path along an arc, enabling animations or calculations that follow curved trajectories.</li>
+  <li><strong>clockwise_path</strong>: Produces a path that follows an arc in the clockwise direction, aiding in clockwise rotations or movements.</li>
+  <li><strong>counterclockwise_path</strong>: Produces a path along an arc in the counterclockwise direction, supporting counterclockwise rotations or movements.</li>
+</ul>

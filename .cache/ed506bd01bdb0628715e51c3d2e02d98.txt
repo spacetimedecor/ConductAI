@@ -1,0 +1,9 @@
+<p>The <code>manimlib/utils/tex.py</code> file contains utility functions related to processing LaTeX code within the Manim library. Its main purpose is to facilitate the handling and manipulation of LaTeX strings, particularly for rendering mathematical expressions and managing LaTeX environments.</p>
+<ul>
+  <li>
+    <strong>num_tex_symbols</strong>: This function calculates the number of LaTeX symbols in a given string, which can be useful for optimizing rendering or managing LaTeX complexity.
+  </li>
+  <li>
+    <strong>remove_tex_environments</strong>: This function removes LaTeX environment tags from a string, aiding in cleaning or simplifying LaTeX code for further processing or rendering.
+  </li>
+</ul>

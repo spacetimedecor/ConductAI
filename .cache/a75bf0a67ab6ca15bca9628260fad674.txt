@@ -1,0 +1,9 @@
+<p>The <code>manimlib/utils/file_ops.py</code> file provides utility functions for handling file system operations within the Manim library. Its main focus is on ensuring the existence of files and directories, as well as locating files within the project structure, facilitating reliable file management for animation rendering and related tasks.</p>
+<ul>
+  <li>
+    <strong>guarantee_existence(path)</strong>: Ensures that the specified file or directory exists at the given path. If it does not exist, the function creates the necessary directories or files to guarantee its presence.
+  </li>
+  <li>
+    <strong>find_file(filename, search_paths)</strong>: Searches for a specified file within a list of directories. It returns the path to the file if found, enabling other parts of the code to locate resources reliably.
+  </li>
+</ul>

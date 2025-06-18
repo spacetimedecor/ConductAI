@@ -1,0 +1,9 @@
+<p>The <code>manimlib/mobject/boolean_ops.py</code> file defines classes and functions for performing boolean operations on vectorized mobjects within the Manim animation library. These operations enable combining, subtracting, intersecting, or excluding parts of mobjects to create complex shapes and animations. The file provides the implementation of these boolean operations, facilitating advanced shape manipulations in animations.</p>
+<ul>
+  <li><strong>Union</strong>: Represents the union of multiple mobjects, combining their areas into a single shape.</li>
+  <li><strong>Difference</strong>: Represents the subtraction of one or more mobjects from a subject mobject, effectively carving out parts of the shape.</li>
+  <li><strong>Intersection</strong>: Represents the overlapping region shared by multiple mobjects, useful for creating shapes based on common areas.</li>
+  <li><strong>Exclusion</strong>: Represents the symmetric difference between mobjects, highlighting areas that are in either shape but not in both.</li>
+  <li><em>_convert_vmobject_to_skia_path</em>: Utility function to convert a vectorized mobject into a Skia path object, facilitating rendering and manipulation at a lower level.</li>
+  <li><em>_convert_skia_path_to_vmobject</em>: Utility function to convert a Skia path back into a vectorized mobject, enabling integration between different representations.</li>
+</ul>

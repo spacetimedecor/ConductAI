@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/family_ops.py is to provide utility functions for extracting and removing members of mobject families in Manim visualizations.</p>

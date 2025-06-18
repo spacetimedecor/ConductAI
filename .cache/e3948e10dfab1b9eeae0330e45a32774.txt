@@ -1,0 +1,1 @@
+<p>The manimlib/animation/composition.py file defines classes and functions for composing and managing sequences and groups of animations in the Manim library.</p>

@@ -1,0 +1,1 @@
+<p>The manimlib/animation/specialized.py file defines specialized animation classes, such as Broadcast, for advanced visual effects in the Manim library.</p>

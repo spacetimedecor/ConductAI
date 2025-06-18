@@ -1,0 +1,6 @@
+<p>The <code>manimlib/event_handler/event_listner.py</code> file defines the <code>EventListener</code> class, which encapsulates the concept of an event listener within the system. Its primary purpose is to represent and manage individual event handlers that respond to specific user input events associated with objects (mobjects). This class facilitates the registration, comparison, and management of event listeners, enabling the system to handle user interactions effectively.</p>
+<ul>
+  <li>
+    <strong>EventListener</strong>: This class models an event listener, associating a specific callback function with an event type and a target object (mobject). It provides mechanisms for initialization and comparison of event listeners.
+  </li>
+</ul>

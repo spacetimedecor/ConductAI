@@ -1,0 +1,1 @@
+<p>The 'point_cloud_mobject.py' file defines classes for creating and managing 3D point cloud objects in Manim.</p>

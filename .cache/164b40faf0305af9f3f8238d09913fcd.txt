@@ -1,0 +1,1 @@
+<p>The 'manimlib/event_handler/event_dispatcher.py' file defines the EventDispatcher class responsible for managing and dispatching various user input events in the system.</p>

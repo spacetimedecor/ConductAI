@@ -1,0 +1,7 @@
+<p>The <code>manimlib/mobject/shape_matchers.py</code> file defines classes that create shape-matching mobjects, such as rectangles and crosses, which are used to highlight or emphasize other mobjects in a scene. These classes facilitate the creation of visual annotations and decorations that adapt to the shape and position of target objects.</p>
+<ul>
+  <li><strong>SurroundingRectangle</strong>: Creates a rectangle that surrounds a given mobject, typically used to highlight or emphasize it. It automatically adjusts its size to fit around the target object, with optional padding and color customization.</li>
+  <li><strong>BackgroundRectangle</strong>: Generates a rectangle that serves as a background for a mobject, often used to improve visibility or contrast against the scene background.</li>
+  <li><strong>Cross</strong>: Produces a cross shape that can be positioned over a mobject, useful for marking or indicating specific points or features.</li>
+  <li><strong>Underline</strong>: Creates an underline beneath a mobject, which can be used to underline text or other elements for emphasis.</li>
+</ul>

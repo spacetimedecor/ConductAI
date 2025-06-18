@@ -1,0 +1,13 @@
+<p>The <code>manimlib/mobject/interactive.py</code> file provides classes and components that facilitate interactive elements within Manim animations. These elements include buttons, sliders, checkboxes, and control panels that enable dynamic user interaction and real-time control of visualizations. The classes defined in this file are designed to create, manage, and respond to user inputs, allowing for more engaging and customizable animations.</p>
+
+<ul>
+  <li><strong>MotionMobject</strong>: Represents mobjects that can be animated with motion paths, enabling dynamic movement within scenes.</li>
+  <li><strong>Button</strong>: Defines a clickable button element that can trigger specific actions or functions when pressed.</li>
+  <li><strong>ControlMobject</strong>: Serves as a base class for interactive control elements, managing state and user interactions.</li>
+  <li><strong>EnableDisableButton</strong>: A specialized button that toggles the enabled or disabled state of other interactive components.</li>
+  <li><strong>Checkbox</strong>: Implements a checkbox UI element allowing users to toggle options on or off.</li>
+  <li><strong>LinearNumberSlider</strong>: Provides a slider for selecting numerical values within a linear range, suitable for parameter adjustments.</li>
+  <li><strong>ColorSliders</strong>: A set of sliders for selecting and adjusting colors, enabling dynamic color changes in visualizations.</li>
+  <li><strong>Textbox</strong>: Creates a text input field for user input, supporting custom text entry within the scene.</li>
+  <li><strong>ControlPanel</strong>: Aggregates multiple interactive controls into a single panel, facilitating organized user interaction and parameter control.</li>
+</ul>

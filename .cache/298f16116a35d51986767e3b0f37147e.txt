@@ -1,0 +1,1 @@
+<p>The 'manimlib/mobject/boolean_ops.py' file defines classes and functions for performing boolean operations like union, difference, intersection, and exclusion on vectorized mobjects.</p>

@@ -1,0 +1,5 @@
+<p>The <code>manimlib/utils/debug.py</code> file provides utility functions aimed at assisting with debugging and inspecting various aspects of Manim visualizations. It includes functions to display information about object hierarchies and to generate labels for indexing purposes, facilitating easier debugging and understanding of scene components during development.</p>
+<ul>
+  <li><strong>print_family</strong>: This function outputs the hierarchy or "family" of a given mobject, helping developers understand the structure and relationships between objects in a scene.</li>
+  <li><strong>index_labels</strong>: This function generates labels for objects based on their indices, which can be useful for identifying and referencing specific objects during debugging sessions.</li>
+</ul>

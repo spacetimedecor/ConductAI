@@ -1,0 +1,32 @@
+```html
+<p>This code creates a simple animation using Manim. It displays a square and then applies a 'wiggle' animation to it, which involves both scaling and rotating the square around its center.</p>
+<pre><code>from manim import *
+
+class SquareWiggle(Scene):
+    def construct(self):
+        # Create a square Mobject
+        square = Square()
+        square.set_fill(BLUE, opacity=0.8) # Set fill color and opacity
+        square.set_stroke(WHITE, width=4) # Set stroke color and width
+
+        # Add the square to the scene
+        self.play(Create(square))
+
+        # Apply the WiggleOutThenIn animation to the square
+        # This animation scales and rotates the square multiple times
+        # scale_value: The maximum scale factor during the wiggle
+        # rotation_angle: The maximum rotation angle during the wiggle
+        # n_wiggles: The number of wiggles (cycles of scaling and rotation)
+        # run_time: The duration of the animation in seconds
+        self.play(WiggleOutThenIn(
+            square,
+            scale_value=1.2,
+            rotation_angle=PI / 12, # Rotate by 15 degrees (PI/12 radians)
+            n_wiggles=4,
+            run_time=3
+        ))
+
+        # Keep the square on screen for a moment before ending
+        self.wait(1)
+</code></pre>
+```

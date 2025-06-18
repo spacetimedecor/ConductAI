@@ -1,0 +1,12 @@
+<p>The <code>manimlib/mobject/functions.py</code> file defines classes that represent various mathematical functions and curves as mobjects within the Manim animation framework. These classes enable the creation, visualization, and manipulation of parametric, graph-based, and implicit functions, facilitating the rendering of complex mathematical shapes and graphs in animations.</p>
+<ul>
+  <li>
+    <strong>ParametricCurve</strong>: Represents a parametric curve defined by a parametric function, allowing for the creation of smooth, continuous curves based on parameterized equations.
+  </li>
+  <li>
+    <strong>FunctionGraph</strong>: Encapsulates a graph of a real-valued function, enabling visualization of functions as curves on coordinate axes.
+  </li>
+  <li>
+    <strong>ImplicitFunction</strong>: Defines an implicit function, allowing for the rendering of shapes and regions defined by equations of the form F(x, y) = 0.
+  </li>
+</ul>

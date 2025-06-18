@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/geometry.py is to define geometric mobject classes for creating and manipulating various shapes and figures in visualizations.</p>

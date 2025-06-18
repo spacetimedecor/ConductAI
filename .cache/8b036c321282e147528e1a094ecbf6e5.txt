@@ -1,0 +1,46 @@
+```html
+<p>This code animates a sine wave using the <code>PhaseFlow</code> animation. It defines a function that describes the movement of points on the sine wave over time, effectively making the wave appear to flow or animate.</p>
+<pre><code>from manimlib.animation.movement import PhaseFlow
+from manimlib.mobject.geometry import ParametricFunction
+from manimlib.scene.scene import Scene
+from manimlib.utils.rate_functions import linear
+import numpy as np
+
+class AnimateSineWave(Scene):
+    def construct(self):
+        # Define the sine wave function
+        def sine_wave_func(t):
+            return np.array([t, np.sin(t), 0])
+
+        # Create the initial sine wave Mobject
+        # The range is chosen to make the wave visible and interesting
+        sine_wave = ParametricFunction(sine_wave_func, t_range=[-2 * np.PI, 2 * np.PI], color=BLUE)
+
+        # Define a function for PhaseFlow that shifts the wave horizontally
+        # This function takes a point p (x, y, z) and returns a vector
+        # that describes its velocity. Here, we want a constant horizontal shift.
+        def flow_function(p):
+            # We want the wave to move to the left, so the x-component of the velocity is negative.
+            # The y and z components are 0 as we only want horizontal movement.
+            return np.array([-0.5, 0, 0])
+
+        # Create the PhaseFlow animation
+        # The mobject (sine_wave) will be updated according to flow_function
+        # virtual_time controls the total "distance" the points travel
+        # run_time controls how long the animation takes
+        # rate_func is set to linear for a constant speed animation
+        wave_animation = PhaseFlow(
+            sine_wave,
+            function=flow_function,
+            virtual_time=4 * np.PI,  # Move the wave by 4*PI units
+            run_time=8,              # Animation duration of 8 seconds
+            rate_func=linear         # Constant speed
+        )
+
+        # Add the initial sine wave to the scene
+        self.add(sine_wave)
+
+        # Play the animation
+        self.play(wave_animation)
+</code></pre>
+```

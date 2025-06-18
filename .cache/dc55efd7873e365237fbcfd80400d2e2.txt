@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/cache.py is to provide decorators and functions for caching function outputs on disk to improve performance and manage cached data.</p>

@@ -1,0 +1,7 @@
+<p>The <code>manimlib/camera/camera.py</code> file defines the core camera classes used in the Manim animation library, primarily focusing on the <code>Camera</code> class and its subclass <code>ThreeDCamera</code>. These classes manage the camera's setup, frame, and orientation within a scene, enabling both 2D and 3D visualization capabilities. The file also includes methods for initializing rendering contexts, setting camera frames, and configuring camera parameters such as Euler angles and light sources.</p>
+<ul>
+  <li><strong>Camera</strong>: The primary class representing a camera in a scene. It handles context initialization, frame setup, and camera configuration, including position, orientation, and lighting.</li>
+  <li><strong>ThreeDCamera</strong>: A subclass of <code>Camera</code> that adds support for 3D rendering features, such as 3D transformations and camera-specific configurations for three-dimensional scenes.</li>
+  <li><strong>init_context</strong>: Initializes the rendering context using <code>moderngl</code>. It creates a standalone context if no window is provided or uses the window's context, and enables point size and blending features.</li>
+  <li><strong>init_frame</strong>: Sets up the camera's frame by creating a <code>CameraFrame</code> object, which manages the camera's position and orientation within the scene.</li>
+</ul>

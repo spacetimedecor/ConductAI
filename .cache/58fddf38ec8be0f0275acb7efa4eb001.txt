@@ -1,0 +1,1 @@
+<p>The 'manimlib/animation/indication.py' file defines animations that visually indicate or highlight objects during a Manim scene.</p>

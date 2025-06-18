@@ -1,0 +1,6 @@
+<p>The <code>manimlib/utils/dict_ops.py</code> file provides utility functions for manipulating Python dictionaries, with a focus on recursive operations. Its primary purpose is to facilitate the merging of dictionaries in a way that combines nested structures, ensuring that all levels of the dictionaries are appropriately merged rather than overwritten.</p>
+<ul>
+  <li>
+    <strong>merge_dicts_recursively</strong>: This function takes multiple dictionaries as input and merges them into a single dictionary. Unlike standard dictionary update methods, it performs a deep merge, combining nested dictionaries at all levels. This is particularly useful for managing complex configuration data or layered settings where nested structures need to be integrated seamlessly.
+  </li>
+</ul>

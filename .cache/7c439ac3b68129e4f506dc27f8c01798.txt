@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/changing.py is to define classes that manage dynamic changes and animations of mobjects during visualizations.</p>

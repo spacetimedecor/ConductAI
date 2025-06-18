@@ -1,0 +1,5 @@
+<p>The <code>manimlib/mobject/types/point_cloud_mobject.py</code> file defines classes and methods for creating, managing, and manipulating point cloud objects within the Manim animation library. These classes facilitate the creation of 3D point clouds, grouping of multiple point cloud objects, and various operations such as adding points, ingesting sub-objects, and partial transformations of point data.</p>
+<ul>
+  <li><strong>PMobject</strong>: Represents a point cloud object, providing methods to add points, combine data from sub-objects, and perform partial transformations on the point data.</li>
+  <li><strong>PGroup</strong>: A container class for grouping multiple <code>PMobject</code> instances, ensuring they are managed as a collective.</li>
+</ul>

@@ -1,0 +1,43 @@
+<p>The <code>manimlib/utils/space_ops.py</code> file contains a collection of utility functions and algorithms for performing operations in 3D and 2D space. These functions facilitate vector manipulations, geometric calculations, quaternion operations, and spatial transformations, which are essential for rendering and animating objects within the Manim library.</p>
+<ul>
+  <li><strong>cross</strong>: Computes the cross product of two vectors, useful for determining perpendicular vectors in 3D space.</li>
+  <li><strong>get_norm</strong>: Calculates the Euclidean norm (length) of a vector.</li>
+  <li><strong>get_dist</strong>: Determines the distance between two points in space.</li>
+  <li><strong>normalize</strong>: Converts a vector to a unit vector, maintaining its direction.</li>
+  <li><strong>poly_line_length</strong>: Computes the total length of a polyline defined by a sequence of points.</li>
+  <li><strong>quaternion_mult</strong>: Multiplies two quaternions, enabling complex rotations in 3D space.</li>
+  <li><strong>quaternion_from_angle_axis</strong>: Creates a quaternion representing a rotation around a specified axis by a given angle.</li>
+  <li><strong>angle_axis_from_quaternion</strong>: Extracts the rotation angle and axis from a quaternion.</li>
+  <li><strong>quaternion_conjugate</strong>: Computes the conjugate of a quaternion, used in inverse rotations.</li>
+  <li><strong>rotate_vector</strong>: Rotates a vector by a given quaternion.</li>
+  <li><strong>rotate_vector_2d</strong>: Rotates a 2D vector by a specified angle.</li>
+  <li><strong>rotation_matrix_transpose_from_quaternion</strong>: Generates the transpose of a rotation matrix derived from a quaternion.</li>
+  <li><strong>rotation_matrix_from_quaternion</strong>: Converts a quaternion into a rotation matrix.</li>
+  <li><strong>rotation_matrix</strong>: Constructs a rotation matrix from given parameters.</li>
+  <li><strong>rotation_matrix_transpose</strong>: Computes the transpose of a rotation matrix.</li>
+  <li><strong>rotation_about_z</strong>: Creates a rotation matrix for rotation about the Z-axis.</li>
+  <li><strong>rotation_between_vectors</strong>: Calculates the rotation needed to align one vector with another.</li>
+  <li><strong>z_to_vector</strong>: Converts a vector into a rotation that aligns the Z-axis with that vector.</li>
+  <li><strong>angle_of_vector</strong>: Determines the angle of a vector relative to a reference axis.</li>
+  <li><strong>angle_between_vectors</strong>: Computes the angle between two vectors.</li>
+  <li><strong>project_along_vector</strong>: Projects a point or vector along a specified direction.</li>
+  <li><strong>normalize_along_axis</strong>: Normalizes vectors along a specified axis in a collection.</li>
+  <li><strong>get_unit_normal</strong>: Finds a unit normal vector to a given vector or plane.</li>
+  <li><strong>thick_diagonal</strong>: Calculates a thick diagonal line or segment in space.</li>
+  <li><strong>compass_directions</strong>: Provides standard compass direction vectors.</li>
+  <li><strong>complex_to_R3</strong>: Converts a complex number into a 3D vector.</li>
+  <li><strong>R3_to_complex</strong>: Converts a 3D vector into a complex number.</li>
+  <li><strong>complex_func_to_R3_func</strong>: Transforms a complex function into a 3D vector function.</li>
+  <li><strong>center_of_mass</strong>: Computes the center of mass for a set of points or objects.</li>
+  <li><strong>midpoint</strong>: Finds the midpoint between two points.</li>
+  <li><strong>line_intersection</strong>: Determines the intersection point of two lines.</li>
+  <li><strong>find_intersection</strong>: Finds the intersection point of geometric entities.</li>
+  <li><strong>line_intersects_path</strong>: Checks if a line intersects a given path.</li>
+  <li><strong>get_closest_point_on_line</strong>: Finds the closest point on a line to a given point.</li>
+  <li><strong>get_winding_number</strong>: Calculates the winding number of a point around a polygon.</li>
+  <li><strong>cross2d</strong>: Computes the 2D cross product of two vectors.</li>
+  <li><strong>tri_area</strong>: Calculates the area of a triangle given three points.</li>
+  <li><strong>is_inside_triangle</strong>: Checks if a point lies inside a triangle.</li>
+  <li><strong>norm_squared</strong>: Computes the squared norm of a vector.</li>
+  <li><strong>earclip_triangulation</strong>: Performs polygon triangulation using the ear clipping method.</li>
+</ul>

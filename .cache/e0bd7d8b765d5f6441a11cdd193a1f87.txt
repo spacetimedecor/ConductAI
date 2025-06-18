@@ -1,0 +1,6 @@
+<p>The <code>manimlib/mobject/probability.py</code> file defines classes related to probability concepts within the Manim visualization library. It provides structures for representing probability spaces and visualizing probability distributions, such as bar charts, in animated scenes. These classes facilitate the creation of dynamic and illustrative probability models for educational or demonstrative purposes.</p>
+
+<ul>
+  <li><strong>SampleSpace</strong>: Represents the sample space in a probability experiment. It manages the set of all possible outcomes and provides methods to visualize or manipulate this space within a scene.</li>
+  <li><strong>BarChart</strong>: Used to create and animate bar charts that depict probability distributions. It allows for dynamic updates to the chart based on changing probabilities or data inputs, aiding in visual explanations of statistical concepts.</li>
+</ul>

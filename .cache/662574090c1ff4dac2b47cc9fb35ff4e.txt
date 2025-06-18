@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/scene/scene.py is to define the core classes and structures for creating and managing scenes in the Manim animation library.</p>

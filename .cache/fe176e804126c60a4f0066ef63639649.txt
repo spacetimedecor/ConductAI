@@ -1,0 +1,15 @@
+<p>The <code>manimlib/mobject/types/image_mobject.py</code> file defines the <code>ImageMobject</code> class, which is responsible for representing image-based objects within the Manim animation framework. This class facilitates loading, positioning, and rendering raster images as part of animated scenes, allowing images to be integrated seamlessly into mathematical visualizations and animations.</p>
+<ul>
+  <li>
+    <strong>ImageMobject</strong>: The main class in this file that manages raster images. It handles loading an image from a specified file, setting its size and position, and preparing it for rendering within a scene.
+  </li>
+  <li>
+    <strong>ImageMobject.__init__</strong>: The constructor method that initializes an instance of <code>ImageMobject</code> by loading an image file, setting its height, and preparing the texture for display.
+  </li>
+  <li>
+    <strong>ImageMobject.init_data</strong>: Initializes the internal data structures used for rendering the image, including defining points, texture coordinates, and opacity settings.
+  </li>
+  <li>
+    <strong>ImageMobject.init_points</strong>: Sets up the geometric points of the image object based on the image's size and the desired height, ensuring correct scaling and aspect ratio.
+  </li>
+</ul>

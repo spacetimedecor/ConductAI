@@ -1,0 +1,7 @@
+<p>The <code>manimlib/animation/composition.py</code> file defines classes that facilitate the composition and sequencing of multiple animations within the Manim animation library. These classes enable complex animation behaviors such as running animations in sequence, with delays, or in a staggered manner, providing flexible tools for creating intricate visual effects.</p>
+<ul>
+  <li><strong>AnimationGroup</strong>: Manages a collection of animations that run simultaneously, allowing multiple animations to be played together as a single unit.</li>
+  <li><strong>Succession</strong>: Handles a sequence of animations that play one after another, with optional delays or overlaps, enabling smooth transitions between animations.</li>
+  <li><strong>LaggedStart</strong>: Creates a staggered start for a group of animations, where each animation begins after a specified lag, producing a cascading effect.</li>
+  <li><strong>LaggedStartMap</strong>: Applies a lagged start to a mapping of animations, allowing for complex, synchronized staggered animations across multiple objects or parameters.</li>
+</ul>

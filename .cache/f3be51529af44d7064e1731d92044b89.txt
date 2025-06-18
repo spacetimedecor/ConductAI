@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/animation/rotation.py is to define classes and functions for rotating objects within the Manim animation library.</p>

@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/svg/svg_mobject.py' is to define classes and methods for converting SVG paths into mobjects for use in animations.</p>

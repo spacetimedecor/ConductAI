@@ -1,0 +1,23 @@
+<p>The <code>shaders.py</code> file in <code>manimlib/utils</code> provides utility functions for loading, managing, and compiling shader programs used in rendering graphics within Manim. It includes functions to read shader code from files, handle shader code insertions, and manage shader program creation, facilitating flexible and dynamic shader management for visual effects.</p>
+<ul>
+  <li>
+    <strong>get_shader_code_from_file(filename: str) -> str | None</strong>: 
+    Reads shader code from a specified file, handling file lookup and including support for code insertions from other shader files. It returns the shader code as a string or None if the file cannot be found or read.
+  </li>
+  <li>
+    <strong>get_shader_program(ctx, ...)</strong>: 
+    (Imported from elsewhere) Creates and compiles a shader program given shader source code, used for rendering effects.
+  </li>
+  <li>
+    <strong>set_program_uniform(program, name, value)</strong>: 
+    (Imported from elsewhere) Sets a uniform variable in a shader program.
+  </li>
+  <li>
+    <strong>image_path_to_texture(path)</strong>: 
+    (Imported from elsewhere) Converts an image file path to a texture object for use in shaders.
+  </li>
+  <li>
+    <strong>get_colormap_code()</strong>: 
+    (Imported from elsewhere) Retrieves shader code related to colormaps.
+  </li>
+</ul>

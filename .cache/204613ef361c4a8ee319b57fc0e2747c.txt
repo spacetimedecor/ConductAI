@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/animation/creation.py is to define classes for creating specific visual animations and effects in the Manim library.</p>

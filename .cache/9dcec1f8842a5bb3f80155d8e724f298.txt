@@ -1,0 +1,1 @@
+<p>The 'manimlib/animation/fading.py' file defines classes and functions for creating fade-in and fade-out animations of objects in the Manim library.</p>

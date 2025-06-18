@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/utils/sounds.py' is to manage sound file paths and facilitate playing sound files across different operating systems.</p>

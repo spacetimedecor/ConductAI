@@ -1,0 +1,13 @@
+```json
+{
+  "example_tasks": [
+    "Create a simple animation showing a geometric shape transforming (e.g., a square rotating and scaling).",
+    "Display mathematical equations using LaTeX within an animated scene.",
+    "Animate the plotting of a mathematical function (e.g., a sine wave).",
+    "Combine multiple animated elements, such as text appearing alongside a moving object.",
+    "Render a complex animation into a high-quality video file.",
+    "Debug an issue with object positioning or animation timing in a Manim scene.",
+    "Integrate external data or images into a Manim animation."
+  ]
+}
+```

@@ -1,0 +1,1 @@
+<p>The manimlib/animation/numbers.py file defines classes for animating numerical changes and transitions in the Manim library.</p>

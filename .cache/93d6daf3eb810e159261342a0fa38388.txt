@@ -1,0 +1,6 @@
+<p>The <code>manimlib/mobject/changing.py</code> file defines classes that facilitate dynamic and animated modifications of mobjects during animations in the Manim library. These classes enable effects such as boundary animations, path tracing, and tail tracing, which are essential for creating visually engaging and illustrative animations.</p>
+<ul>
+  <li><strong>AnimatedBoundary</strong>: Manages animations that highlight or animate the boundary of a mobject, often used to emphasize or animate the edges of shapes or objects.</li>
+  <li><strong>TracedPath</strong>: Creates a path that traces the movement of a point or mobject over time, useful for illustrating motion or trajectories.</li>
+  <li><strong>TracingTail</strong>: Implements a tail effect that follows a moving point or mobject, creating a trailing visual that emphasizes motion and history of movement.</li>
+</ul>

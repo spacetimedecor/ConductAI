@@ -1,0 +1,7 @@
+<p>The <code>manimlib/event_handler/event_dispatcher.py</code> file defines the <code>EventDispatcher</code> class, which manages the registration, dispatching, and handling of various input events such as mouse movements, clicks, drags, and keyboard presses within the animation framework. Its primary role is to facilitate event-driven interactions by maintaining event listeners and propagating events to appropriate handlers based on the event type and context.</p>
+<ul>
+  <li><strong>EventDispatcher</strong>: The main class responsible for managing event listeners, tracking input states (mouse position, pressed keys), and dispatching events to registered listeners.</li>
+  <li><strong>__init__</strong>: Initializes the dispatcher with empty listener lists, sets initial mouse positions, and prepares data structures for tracking pressed keys and draggable objects.</li>
+  <li><strong>add_listner</strong>: Adds an <code>EventListener</code> to the dispatcher for a specific event type, enabling it to respond when such events occur.</li>
+  <li><strong>dispatch</strong>: The core method that processes incoming events, updates internal states (like mouse position or pressed keys), determines which listeners should be notified, and invokes their callbacks. It handles different event types such as mouse motion, clicks, drags, and key presses/releases, and manages event propagation control.</li>
+</ul>

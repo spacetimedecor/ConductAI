@@ -1,0 +1,41 @@
+```html
+<p>This code demonstrates how to integrate an external image into a Manim animation by creating an <code>ImageMobject</code> from a local file and displaying it in a scene.</p>
+<pre><code>import os
+from manimlib.mobject.mobject import Mobject
+from manimlib.mobject.image_mobject import ImageMobject
+from manimlib.scene.scene import Scene
+
+class ImageIntegrationExample(Scene):
+    def construct(self):
+        # Create a dummy image file for demonstration purposes.
+        # In a real scenario, you would use an existing image file.
+        dummy_image_path = "dummy_image.png"
+        try:
+            from PIL import Image
+            img = Image.new('RGB', (60, 30), color = 'red')
+            img.save(dummy_image_path)
+        except ImportError:
+            print("Pillow not installed. Cannot create dummy image. Please create 'dummy_image.png' manually.")
+            # If Pillow is not installed, the user needs to manually create a dummy_image.png
+            # For the example to run, a placeholder ImageMobject will be created.
+            # In a real application, you'd handle this more robustly.
+            if not os.path.exists(dummy_image_path):
+                print(f"Error: '{dummy_image_path}' not found. Please create it or install Pillow.")
+                return
+
+        # Create an ImageMobject from the dummy image file.
+        # The ImageMobject will load and display the image.
+        image_mobject = ImageMobject(dummy_image_path)
+
+        # Add the image mobject to the scene.
+        # This makes the image visible in the animation.
+        self.add(image_mobject)
+
+        # Wait for a short duration to display the image.
+        self.wait(2)
+
+        # Clean up the dummy image file.
+        if os.path.exists(dummy_image_path):
+            os.remove(dummy_image_path)
+</code></pre>
+```

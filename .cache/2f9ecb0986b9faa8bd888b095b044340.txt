@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/types/vectorized_mobject.py' is to define classes and methods for creating, manipulating, and rendering vectorized, multi-point mobjects for animations.</p>

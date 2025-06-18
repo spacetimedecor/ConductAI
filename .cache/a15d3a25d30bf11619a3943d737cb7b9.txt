@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/extract_scene.py' is to extract and manage scene classes from Manim modules for rendering or further processing.</p>

@@ -1,0 +1,26 @@
+<p>The following code displays a mathematical equation using LaTeX and animates its creation within a Manim scene.</p>
+<pre><code>import manimlib.constants as constants
+from manimlib.scene.scene import Scene
+from manimlib.mobject.types.vectorized_mobject import VMobject
+from manimlib.mobject.svg.tex_mobject import TexMobject
+from manimlib.animation.creation import ShowCreation
+
+class EquationDisplay(Scene):
+    def construct(self):
+        # Define the LaTeX equation
+        # TexMobject is used to render LaTeX mathematical expressions.
+        equation = TexMobject(
+            "\\sum_{n=1}^{\\infty} \\frac{1}{n^2} = \\frac{\\pi^2}{6}",
+            tex_environment="equation*" # Use equation* environment for unnumbered equation
+        )
+
+        # Scale the equation to fit the scene
+        equation.scale(1.5)
+
+        # Animate the creation of the equation
+        # ShowCreation animates the drawing of the mobject.
+        self.play(ShowCreation(equation))
+
+        # Keep the equation on screen for a short duration
+        self.wait(constants.DEFAULT_WAIT_TIME)
+</code></pre>

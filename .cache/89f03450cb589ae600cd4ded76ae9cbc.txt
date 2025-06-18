@@ -1,0 +1,6 @@
+<p>The <code>scene_file_writer.py</code> file in the Manim library is responsible for managing the output file handling during scene rendering. It primarily handles the initialization of output directories and determines whether to automatically open generated files upon completion, facilitating smooth workflows for saving and viewing animations or images.</p>
+<ul>
+  <li><strong>SceneFileWriter</strong>: This is the main class in the file, responsible for managing file output operations, including setting up directories and deciding when to open files after rendering.</li>
+  <li><strong>init_output_directories</strong>: Initializes the necessary directories for saving images and movies based on configuration flags, ensuring that output paths are correctly set up before rendering begins.</li>
+  <li><strong>should_open_file</strong>: Determines whether the output files should automatically open after rendering, based on user preferences such as showing the file location or opening the file upon completion.</li>
+</ul>

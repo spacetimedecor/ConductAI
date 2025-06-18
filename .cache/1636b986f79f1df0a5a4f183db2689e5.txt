@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/scene/scene_embed.py is to facilitate embedding, launching, and reloading Manim scenes within interactive environments like IPython notebooks.</p>

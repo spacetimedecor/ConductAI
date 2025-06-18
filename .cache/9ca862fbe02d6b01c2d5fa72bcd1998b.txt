@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/svg/drawings.py' is to define SVG-based drawing classes for various objects used in animations, such as icons and symbols.</p>

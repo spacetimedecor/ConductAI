@@ -1,0 +1,5 @@
+<p>The <code>manimlib/utils/cache.py</code> file provides utility functions for caching data during the execution of the Manim library. Its primary purpose is to facilitate the storage and retrieval of computed values to improve performance and avoid redundant calculations by caching results on disk or in memory.</p>
+<ul>
+  <li><strong>cache_on_disk</strong>: A decorator that wraps functions to automatically cache their return values on disk. When the decorated function is called, it checks if the result is already cached; if so, it returns the cached value, otherwise it computes, caches, and returns the new result.</li>
+  <li><strong>clear_cache</strong>: A function that clears the in-memory cache, removing all stored cached data to free resources or reset the cache state.</li>
+</ul>

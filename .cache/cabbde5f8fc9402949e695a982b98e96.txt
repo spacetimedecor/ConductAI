@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/svg/text_mobject.py' is to define classes and functions for creating, managing, and rendering SVG-based text objects in animations.</p>

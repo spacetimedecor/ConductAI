@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/shader_wrapper.py is to define classes and methods for managing and rendering shader programs used in visual effects rendering.</p>

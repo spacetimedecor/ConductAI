@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/frame.py is to define classes for creating and managing rectangular frame objects, such as screen and full-screen rectangles, used in visualizations.</p>

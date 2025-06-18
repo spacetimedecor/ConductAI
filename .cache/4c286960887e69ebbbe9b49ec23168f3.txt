@@ -1,0 +1,9 @@
+<p>The <code>manimlib/mobject/number_line.py</code> file defines classes and methods for creating and managing number lines within Manim visualizations. It provides customizable number line objects that can display ticks, numbers, and optional tips, allowing precise control over their appearance and behavior in mathematical animations.</p>
+<ul>
+  <li>
+    <strong>NumberLine</strong>: The primary class representing a customizable number line. It includes methods for adding ticks, numbers, converting between numbers and points, and configuring visual aspects such as tick size, spacing, and labels.
+  </li>
+  <li>
+    <strong>UnitInterval</strong>: A class (not detailed here) likely representing a specific segment or unit interval on a number line, used for specialized visualizations or calculations.
+  </li>
+</ul>

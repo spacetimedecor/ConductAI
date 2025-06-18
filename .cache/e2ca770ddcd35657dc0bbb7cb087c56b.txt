@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/probability.py is to define classes and functions for visualizing probability spaces and distributions, such as sample spaces and bar charts.</p>

@@ -1,0 +1,9 @@
+<p>The file <code>manimlib/mobject/types/vectorized_mobject.py</code> defines classes that represent and manipulate vectorized, multi-point mobjects in Manim animations. These classes facilitate the creation of complex, flexible, and animated geometric shapes by managing collections of points, curves, and submobjects, enabling dynamic and scalable visualizations.</p>
+<ul>
+  <li><strong>VMobject</strong>: The core class for vectorized mobjects, providing methods for drawing, transforming, and animating vector shapes composed of multiple points and curves.</li>
+  <li><strong>VGroup</strong>: A container class that groups multiple mobjects together, allowing them to be treated as a single entity for transformations and animations.</li>
+  <li><strong>VectorizedPoint</strong>: Represents individual points within a VMobject, serving as the fundamental building blocks for constructing vector shapes.</li>
+  <li><strong>CurvesAsSubmobjects</strong>: Manages collections of curves as submobjects, enabling complex curve-based shapes and animations.</li>
+  <li><strong>DashedVMobject</strong>: Extends VMobject to create dashed or dotted line styles, useful for emphasizing or differentiating parts of a shape.</li>
+  <li><strong>VHighlight</strong>: Provides highlighting effects on vectorized mobjects, useful for visual emphasis during animations.</li>
+</ul>

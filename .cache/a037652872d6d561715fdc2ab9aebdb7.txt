@@ -1,0 +1,11 @@
+<p>The <code>manimlib/mobject/mobject_update_utils.py</code> file provides utility functions to facilitate the updating and animation of mobjects within the Manim library. It includes functions that create updaters, manage continuous updates, and cycle through animations, enabling dynamic and interactive visualizations.</p>
+<ul>
+  <li><strong>assert_is_mobject_method</strong>: Ensures that a given method is valid for mobjects, providing safety checks before applying updates.</li>
+  <li><strong>always</strong>: Creates an updater that consistently applies a specified function to a mobject during animations.</li>
+  <li><strong>f_always</strong>: Similar to <code>always</code>, but allows for functions that depend on the current time or other parameters, enabling time-dependent updates.</li>
+  <li><strong>always_redraw</strong>: Generates an updater that redraws a mobject each frame, useful for animations that depend on dynamic data or computations.</li>
+  <li><strong>always_shift</strong>: Provides an updater that continuously shifts a mobject by a specified vector, creating smooth movement effects.</li>
+  <li><strong>always_rotate</strong>: Creates an updater that continuously rotates a mobject, facilitating rotational animations.</li>
+  <li><strong>turn_animation_into_updater</strong>: Converts an animation into an updater, allowing animations to be applied as ongoing updates rather than discrete actions.</li>
+  <li><strong>cycle_animation</strong>: Cycles through a sequence of animations or states, enabling looping or repeated visual effects.</li>
+</ul>

@@ -1,0 +1,14 @@
+<p>The <code>manimlib/animation/animation.py</code> file defines the core classes and functions responsible for managing animations within the Manim library. It primarily contains the <code>Animation</code> class, which serves as the base class for creating various animations, and utility functions that support animation workflows. This file facilitates the creation, updating, and representation of animations, ensuring they can be integrated seamlessly into scenes.</p>
+
+<ul>
+  <li>
+    <strong>Animation</strong>: The main class representing an animation. It provides methods for updating the animation state, converting the animation to a string, and other core functionalities.
+    <ul>
+      <li><em>__str__</em>: Returns the name of the animation, providing a human-readable identifier.</li>
+      <li><em>update</em>: Updates the animation's state based on a parameter <code>alpha</code>. Although it is generally not intended to be used directly, it ensures compatibility with older scenes.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>prepare_animation</strong>: A utility function (not detailed here) likely involved in setting up or configuring animations before they run.
+  </li>
+</ul>

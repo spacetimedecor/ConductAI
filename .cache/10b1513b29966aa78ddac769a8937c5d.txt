@@ -1,0 +1,1 @@
+<p>The 'dot_cloud.py' file defines classes for creating and managing 3D point cloud objects with customizable visual effects in Manim.</p>

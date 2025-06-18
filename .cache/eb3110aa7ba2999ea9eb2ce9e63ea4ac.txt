@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/config.py is to initialize and manage the default and custom configuration settings for various components of the Manim library based on YAML files and command-line arguments.</p>

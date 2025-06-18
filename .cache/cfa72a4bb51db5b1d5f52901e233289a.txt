@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/__main__.py is to serve as the entry point for executing Manim scripts and rendering animations.</p>

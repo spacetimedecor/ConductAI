@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/animation/update.py is to define classes for updating and modifying objects during animations in the Manim library.</p>

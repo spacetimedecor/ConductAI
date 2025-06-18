@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/vector_field.py is to define classes and functions for creating, visualizing, and animating vector fields and their streamlines in Manim.</p>

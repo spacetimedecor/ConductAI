@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/shape_matchers.py is to define classes for creating shape-matching mobjects like surrounding rectangles and underlines in Manim visualizations.</p>

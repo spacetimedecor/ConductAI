@@ -1,0 +1,5 @@
+<p>The <code>manimlib/__main__.py</code> file serves as the entry point for the Manim animation library. It is responsible for parsing command-line arguments, configuring the environment, and executing the main workflow to render scenes based on user input. This file orchestrates the process of running animations, managing scene execution, and handling user options to generate the desired visualizations.</p>
+<ul>
+  <li><strong>run_scenes</strong>: This function manages the execution of scenes, handling the rendering process, and coordinating the sequence of animations based on the provided arguments and configurations.</li>
+  <li><strong>main</strong>: The main function acts as the entry point of the script. It parses command-line arguments, sets up the environment, and invokes <code>run_scenes</code> to perform the rendering tasks.</li>
+</ul>

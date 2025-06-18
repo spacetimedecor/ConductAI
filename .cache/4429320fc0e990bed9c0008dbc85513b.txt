@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/mobject/coordinate_systems.py is to define classes and functions for creating and managing various coordinate systems and grids used in Manim visualizations.</p>

@@ -1,0 +1,6 @@
+<p>The <code>manimlib/animation/specialized.py</code> file contains specialized animation classes and functions that extend the core capabilities of the Manim library. Its primary focus is on providing advanced or custom animation behaviors that can be used to create more complex visual effects in mathematical animations.</p>
+<ul>
+  <li>
+    <strong>Broadcast</strong>: A class that facilitates broadcasting animations across multiple objects or groups, enabling synchronized or collective animations with ease.
+  </li>
+</ul>

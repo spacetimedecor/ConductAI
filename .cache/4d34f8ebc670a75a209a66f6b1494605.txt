@@ -1,0 +1,83 @@
+```html
+<p>This code creates a Manim scene where a square moves across the screen, and text appears and disappears alongside it, demonstrating the combination of multiple animated elements.</p>
+<pre><code><span class="c1"># This is a simplified example and requires a more complete Manim environment to run.</span>
+<span class="c1"># The provided context is insufficient to create a fully runnable Manim scene from scratch.</span>
+<span class="c1"># This code snippet focuses on demonstrating the conceptual usage of the provided functions</span>
+<span class="c1"># for combining animations.</span>
+
+<span class="kn">from</span> <span class="nn">manimlib.scene.scene</span> <span class="kn">import</span> <span class="n">Scene</span>
+<span class="kn">from</span> <span class="nn">manimlib.mobject.geometry</span> <span class="kn">import</span> <span class="n">Square</span>
+<span class="kn">from</span> <span class="nn">manimlib.mobject.svg.text_mobject</span> <span class="kn">import</span> <span class="n">TextMobject</span>
+<span class="kn">from</span> <span class="nn">manimlib.animation.creation</span> <span class="kn">import</span> <span class="n">ShowCreation</span>
+<span class="kn">from</span> <span class="nn">manimlib.animation.fading</span> <span class="kn">import</span> <span class="n">FadeOut</span>
+<span class="kn">from</span> <span class="nn">manimlib.animation.movement</span> <span class="kn">import</span> <span class="n">ApplyMethod</span>
+<span class="kn">from</span> <span class="nn">manimlib.animation.composition</span> <span class="kn">import</span> <span class="n">Succession</span><span class="p">,</span> <span class="n">AnimationGroup</span>
+<span class="kn">from</span> <span class="nn">manimlib.utils.space_ops</span> <span class="kn">import</span> <span class="n">RIGHT</span><span class="p">,</span> <span class="n">LEFT</span><span class="p">,</span> <span class="n">UP</span>
+
+<span class="c1"># Assume necessary imports and setup for a Manim scene are present.</span>
+<span class="c1"># This class would inherit from Scene in a full Manim setup.</span>
+<span class="k">class</span> <span class="nc">CombinedAnimationExample</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Create a square object</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">()</span>
+        <span class="n">square</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span><span class="n">LEFT</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+
+        <span class="c1"># Create text objects</span>
+        <span class="n">text1</span> <span class="o">=</span> <span class="n">TextMobject</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+        <span class="n">text2</span> <span class="o">=</span> <span class="n">TextMobject</span><span class="p">(</span><span class="s2">&quot;World&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Animation for the square to move</span>
+        <span class="n">move_square</span> <span class="o">=</span> <span class="n">ApplyMethod</span><span class="p">(</span><span class="n">square</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span> <span class="n">RIGHT</span> <span class="o">*</span> <span class="mi">6</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># Animation for text1 to appear and follow the square</span>
+        <span class="c1"># This uses a custom updater to make the text follow the square.</span>
+        <span class="c1"># Note: The `update_mobjects` and `begin` methods from the context are for</span>
+        <span class="c1"># internal animation logic, not direct user-facing object updates.</span>
+        <span class="c1"># A typical Manim approach for following would be using an updater.</span>
+        <span class="n">text1</span><span class="o">.</span><span class="n">next_to</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">UP</span><span class="p">)</span>
+        <span class="n">text1</span><span class="o">.</span><span class="n">add_updater</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">next_to</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">UP</span><span class="p">))</span>
+        <span class="n">show_text1</span> <span class="o">=</span> <span class="n">ShowCreation</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fade_out_text1</span> <span class="o">=</span> <span class="n">FadeOut</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Animation for text2 to appear later and follow the square</span>
+        <span class="n">text2</span><span class="o">.</span><span class="n">next_to</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">UP</span><span class="p">)</span>
+        <span class="n">text2</span><span class="o">.</span><span class="n">add_updater</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">next_to</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">UP</span><span class="p">))</span>
+        <span class="n">show_text2</span> <span class="o">=</span> <span class="n">ShowCreation</span><span class="p">(</span><span class="n">text2</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">fade_out_text2</span> <span class="o">=</span> <span class="n">FadeOut</span><span class="p">(</span><span class="n">text2</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Combine text animations into a sequence</span>
+        <span class="c1"># Succession ensures animations play one after another.</span>
+        <span class="n">text_sequence</span> <span class="o">=</span> <span class="n">Succession</span><span class="p">(</span>
+            <span class="n">show_text1</span><span class="p">,</span>
+            <span class="n">fade_out_text1</span><span class="p">,</span>
+            <span class="n">show_text2</span><span class="p">,</span>
+            <span class="n">fade_out_text2</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Combine the square movement and text sequence to run concurrently</span>
+        <span class="c1"># AnimationGroup plays animations simultaneously.</span>
+        <span class="n">combined_animation</span> <span class="o">=</span> <span class="n">AnimationGroup</span><span class="p">(</span>
+            <span class="n">move_square</span><span class="p">,</span>
+            <span class="n">text_sequence</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Play the combined animation</span>
+        <span class="c1"># In a full Manim scene, this would be `self.play(combined_animation)`</span>
+        <span class="c1"># For demonstration, we simulate the beginning and updating.</span>
+        <span class="n">combined_animation</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span> <span class="c1"># Calls begin on all sub-animations</span>
+
+        <span class="c1"># Simulate progress (simplified, Manim's Scene.play handles this)</span>
+        <span class="c1"># The `progress_through_animations` method from Scene is an internal mechanism.</span>
+        <span class="c1"># For a user, `self.play()` is the entry point.</span>
+        <span class="c1"># Here, we're just showing the conceptual flow.</span>
+        <span class="c1"># In a real Manim scene, the `self.play()` method would handle the `update_mobjects`</span>
+        <span class="c1"># and `interpolate` calls over time.</span>
+        <span class="c1"># For example:</span>
+        <span class="c1"># self.play(combined_animation)</span>
+
+        <span class="c1"># Clean up updaters after the animation is conceptually done</span>
+        <span class="n">text1</span><span class="o">.</span><span class="n">clear_updaters</span><span class="p">()</span>
+        <span class="n">text2</span><span class="o">.</span><span class="n">clear_updaters</span><span class="p">()</span>
+</code></pre>
+```

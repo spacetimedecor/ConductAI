@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/animation/animation.py is to define the Animation class and related functions for creating and managing animations in the Manim library.</p>

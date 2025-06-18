@@ -1,0 +1,9 @@
+<p>The <code>manimlib/utils/rate_functions.py</code> file provides a collection of functions that define various rate or easing functions used to control the pacing of animations in the Manim library. These functions determine how animated properties change over time, enabling effects such as linear progression, easing in and out, oscillations, and custom pacing behaviors. They are essential for creating smooth, natural, and visually appealing animations by manipulating the rate at which values interpolate.</p>
+
+<ul>
+  <li><strong>linear(t)</strong>: Represents a constant rate of change, progressing linearly over time.</li>
+  <li><strong>lingering(t)</strong>: Creates a slow-down effect towards the end of the animation, causing the motion to linger before completing.</li>
+  <li><strong>running_start(t, pull_factor= -0.5)</strong>: Implements a motion that starts quickly and then slows down, with adjustable pull factor for customization.</li>
+  <li><strong>rush_into(t)</strong>: Accelerates the animation towards the end, creating a rushing effect.</li>
+  <li><strong>squish_rate_func(func, a=0.4, b=0.6)</strong>: Wraps a given rate function to restrict its effect within a specified interval, allowing for custom pacing segments.</li>
+</ul>

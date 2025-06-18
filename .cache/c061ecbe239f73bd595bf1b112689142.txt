@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/paths.py is to provide functions for generating specific geometric paths such as straight lines and arcs.</p>

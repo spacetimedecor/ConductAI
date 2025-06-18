@@ -1,0 +1,11 @@
+# requirements.txt
+# Core utilities
+docutils
+markdown
+# For RAG
+beautifulsoup4
+sentence-transformers
+faiss-cpu
+# For local LLM interaction
+openai
+python-dotenv

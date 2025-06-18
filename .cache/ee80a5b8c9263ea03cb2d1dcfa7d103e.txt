@@ -1,0 +1,1 @@
+<p>The primary purpose of manimlib/utils/shaders.py is to provide functions for loading, managing, and compiling shader programs used in rendering visual effects.</p>

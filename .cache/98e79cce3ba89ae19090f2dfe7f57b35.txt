@@ -1,0 +1,9 @@
+<p>The <code>manimlib/utils/family_ops.py</code> file provides utility functions for managing and manipulating collections of mobjects (mathematical objects) within the Manim animation framework. Its primary focus is on handling the relationships and hierarchies among mobjects, such as extracting members from a family of mobjects or removing mobjects recursively from a hierarchy.</p>
+<ul>
+  <li>
+    <strong>extract_mobject_family_members</strong>: This function retrieves all mobjects that are part of a given mobject family, allowing for easy access to all related components in a scene or hierarchy.
+  </li>
+  <li>
+    <strong>recursive_mobject_remove</strong>: This function removes a specified mobject and all its descendants from a parent mobject, ensuring a clean and complete removal of complex mobject structures.
+  </li>
+</ul>

@@ -1,0 +1,15 @@
+<p>The <code>manimlib/animation/transform_matching_parts.py</code> file defines classes responsible for creating animations that transform one set of objects into another by matching and aligning their parts. These transformations facilitate smooth morphing effects between different shapes, strings, or LaTeX expressions within the Manim animation library.</p>
+<ul>
+  <li>
+    <strong>TransformMatchingParts</strong>: This is the primary class that handles the logic for matching corresponding parts of two objects and animating the transformation between them.
+  </li>
+  <li>
+    <strong>TransformMatchingShapes</strong>: An alias for <code>TransformMatchingParts</code>, providing a more specific name when transforming shape objects.
+  </li>
+  <li>
+    <strong>TransformMatchingStrings</strong>: Handles transformations specifically for string objects, matching characters or substrings during animations.
+  </li>
+  <li>
+    <strong>TransformMatchingTex</strong>: Manages transformations for LaTeX objects, matching parts of mathematical expressions for smooth morphing effects.
+  </li>
+</ul>

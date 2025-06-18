@@ -1,0 +1,12 @@
+<p>The <code>manimlib/utils/directories.py</code> file provides utility functions for managing and retrieving various directory paths used within the Manim animation library. These functions facilitate access to directories such as cache, temporary files, downloads, output, and resource-specific folders like images, sounds, and shaders, ensuring consistent directory management across the project.</p>
+<ul>
+  <li><strong>get_directories</strong>: Returns a dictionary containing paths to key directories used by Manim, serving as a centralized way to access multiple directory paths.</li>
+  <li><strong>get_cache_dir</strong>: Retrieves the directory path designated for caching data, used to store temporary or persistent cache files.</li>
+  <li><strong>get_temp_dir</strong>: Provides the path to the temporary directory used for transient files during execution.</li>
+  <li><strong>get_downloads_dir</strong>: Returns the directory path where downloaded resources or files are stored.</li>
+  <li><strong>get_output_dir</strong>: Retrieves the directory where generated output files, such as videos or images, are saved.</li>
+  <li><strong>get_raster_image_dir</strong>: Provides the path to the directory containing raster images used within Manim.</li>
+  <li><strong>get_vector_image_dir</strong>: Returns the directory for vector images, such as SVG files.</li>
+  <li><strong>get_sound_dir</strong>: Retrieves the directory containing sound files used in animations.</li>
+  <li><strong>get_shader_dir</strong>: Provides the path to the directory holding shader files necessary for rendering effects.</li>
+</ul>

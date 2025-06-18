@@ -1,0 +1,24 @@
+<p>The <code>manimlib/module_loader.py</code> file provides a utility class <code>ModuleLoader</code> designed to facilitate dynamic loading and reloading of Python modules from files. Its primary purpose is to enable importing modules during runtime, especially supporting reloading of modules to reflect code changes without restarting the entire application. This is particularly useful in interactive environments or development workflows where modules may be frequently updated and need to be re-imported seamlessly.</p>
+<ul>
+  <li>
+    <strong>ModuleLoader</strong>: A class that manages the loading and reloading of modules from file paths, handling dependencies and ensuring that only user-defined modules are reloaded to avoid unnecessary or problematic reloads of standard library or external packages.
+  </li>
+</ul>
+<p>Key methods within <code>ModuleLoader</code> include:</p>
+<ul>
+  <li>
+    <strong>get_module(file_name: str | None, is_during_reload=False) -> Module | None</strong>: The main method to import a module from a specified file path. It handles creating a module spec, executing the module, and during reloads, tracking and reloading dependencies to ensure consistency.
+  </li>
+  <li>
+    <strong>_exec_module_and_track_imports(spec, module: Module) -> set[str]</strong>: Executes a module while tracking all imported modules during its execution by temporarily replacing the built-in <code>__import__</code> function. It returns a set of module names that were imported.
+  </li>
+  <li>
+    <strong>_reload_modules(modules: set[str], reloaded_modules_tracker: set[str])</strong>: Reloads a set of modules that are identified as user-defined, avoiding standard library and external packages, to update their code in memory.
+  </li>
+  <li>
+    <strong>_is_user_defined_module(mod: str) -> bool</strong>: Determines whether a module is user-defined based on its location in the filesystem, excluding standard library and external packages.
+  </li>
+  <li>
+    <strong>_deep_reload(module: Module, reloaded_modules_tracker: set[str])</strong>: Recursively reloads a module and its dependencies, ensuring that all relevant user-defined modules are updated, while avoiding reloading certain core or configuration modules.
+  </li>
+</ul>

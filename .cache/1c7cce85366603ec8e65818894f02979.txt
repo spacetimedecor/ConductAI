@@ -1,0 +1,1 @@
+<p>The primary purpose of 'manimlib/mobject/svg/brace.py' is to define classes and methods for creating and manipulating SVG brace objects and their labels in animations.</p>

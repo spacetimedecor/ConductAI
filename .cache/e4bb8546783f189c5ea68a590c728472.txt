@@ -1,0 +1,1 @@
+<p>The 'manimlib/event_handler/event_type.py' file defines the EventType class that enumerates different types of user input events for handling purposes.</p>

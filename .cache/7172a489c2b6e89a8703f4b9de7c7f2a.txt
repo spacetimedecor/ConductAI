@@ -1,0 +1,18 @@
+<p>The <code>manimlib/config.py</code> file is responsible for managing the configuration settings for the Manim library. It provides mechanisms to load default configurations, override them with custom settings, and update specific configuration sections based on command-line arguments. This ensures that various aspects of scene rendering, window behavior, camera settings, file writing, and scene execution are properly configured according to user preferences and defaults.</p>
+<ul>
+  <li><strong>initialize_manim_config</strong>: This function initializes and consolidates the entire configuration for Manim. It loads default settings from YAML files, applies custom configurations, and updates settings based on command-line arguments, returning a comprehensive configuration dictionary.</li>
+  <li><strong>parse_cli</strong>: Parses command-line arguments to determine user-specified options that influence the configuration.</li>
+  <li><strong>update_directory_config</strong>: Updates directory-related settings within the configuration, such as output paths.</li>
+  <li><strong>update_window_config</strong>: Adjusts window-related settings, including resolution and frame rate, based on the configuration and command-line inputs.</li>
+  <li><strong>update_camera_config</strong>: Configures camera parameters, such as zoom and position, according to the current settings.</li>
+  <li><strong>update_file_writer_config</strong>: Sets up file writing options, including output formats and file paths.</li>
+  <li><strong>update_scene_config</strong>: Manages scene-specific settings, like scene classes and rendering options.</li>
+  <li><strong>update_run_config</strong>: Determines how scenes are executed, whether previewed or written to files.</li>
+  <li><strong>update_embed_config</strong>: Configures embedding options for scenes, such as inline rendering settings.</li>
+  <li><strong>load_yaml</strong>: Loads configuration data from YAML files, facilitating flexible and human-readable configuration management.</li>
+  <li><strong>get_manim_dir</strong>: Retrieves the root directory of the Manim installation.</li>
+  <li><strong>get_resolution_from_args</strong>: Extracts resolution settings from command-line arguments or configuration.</li>
+  <li><strong>get_file_ext</strong>: Determines the appropriate file extension for output files based on configuration.</li>
+  <li><strong>get_animations_numbers</strong>: Retrieves animation sequence numbers for scene rendering.</li>
+  <li><strong>get_output_directory</strong>: Gets the directory path where output files will be saved.</li>
+</ul>
