@@ -1,86 +1,307 @@
-# 🤖 ConductDoc: AI-Powered Python Documentation Generator
+# 🌟 ConductDoc: Recursive AI Documentation Generator
 
-**Project for: ConductAI AI Engineer Take-Home**
+```
+     ╭─────────────────────────────────────────────────╮
+     │  🔄 RECURSIVE KNOWLEDGE SYNTHESIS PIPELINE     │
+     ╰─────────────────────────────────────────────────╯
+                            │
+        ┌─────────────────────▼─────────────────────┐
+        │          📁 Repository Analysis           │
+        │     🕷️ Crawl → 🧠 Analyze → 📝 Generate    │
+        └─────────────────────┬─────────────────────┘
+                            │
+     ╭─────────────────────────▼─────────────────────────╮
+     │  🌳 RECURSIVE SUMMARIZATION STRATEGY             │
+     │                                                  │
+     │  Files → Modules → Packages → Architecture       │
+     │    ↓        ↓         ↓           ↓             │
+     │  Each summary enriches the embeddings database   │
+     │  Creating a self-reinforcing knowledge web 🕸️   │
+     ╰──────────────────────────────────────────────────╯
+```
+
+**An AI-powered documentation generator that creates living, breathing documentation through recursive knowledge synthesis.**
 
 ---
 
-## 🚀 Project Overview
+## ✨ What Makes ConductDoc Special
 
-ConductDoc is a prototype system that automatically generates comprehensive, human-friendly documentation for any Python library. It was built to solve the specific pain points of a notional customer: a small IT team, proficient in scripting but new to Python, tasked with leveraging the `manim` library for educational video production.
+### 🔄 The Recursive Intelligence Engine
 
-The system addresses their needs by:
-1.  **Crawling** a Python repository to understand its structure.
-2.  **Analyzing** the code and existing docs using AI (currently mocked) to synthesize insights.
-3.  **Generating** a multi-page static HTML site with:
-    *   A high-level summary for stakeholders.
-    *   An interactive architecture diagram.
-    *   Navigable, step-by-step explanations of every class and function.
-    *   Curated code examples for common tasks.
+ConductDoc doesn't just analyze code—it **builds understanding recursively**, creating a self-enriching knowledge ecosystem:
 
-This prototype was built in under 4 hours and focuses on demonstrating a robust, scalable architecture and a deep understanding of the user's core problems.
+```mermaid
+graph TD
+    A[📄 Individual Files] --> B[🧠 File Summaries]
+    B --> C[📚 Embeddings Database]
+    C --> D[🔍 Enhanced Context]
+    D --> E[📦 Module Summaries]
+    E --> C
+    C --> F[🏗️ Architecture Understanding]
+    F --> C
+    C --> G[💎 Final Documentation]
+    
+    style C fill:#e1f5fe
+    style G fill:#c8e6c9
+```
 
-### ✨ Key Features & Design Philosophy
+### 🌱 Self-Enriching Knowledge Web
 
-*   **Code is Truth:** The primary source for documentation is the code itself, ensuring accuracy even when official docs are stale.
-*   **Context is King:** The system intelligently uses the `README.md` and existing `docs/` folders as context to make the AI-generated content richer and more aligned with the library's intent.
-*   **User-Centric by Design:** The output is specifically tailored for developers who are unfamiliar with Python's idioms, providing simple, step-by-step explanations rather than just API signatures.
-*   **Developer-Friendly CLI:** A clean command-line interface with smart auto-detection and powerful manual overrides for a great user experience.
-*   **Clean & Scalable Architecture:** The code is structured as a proper Python package (`conductdoc/`) with a clear separation of concerns (crawling, analyzing, generating), making it easy to maintain, test, and extend.
+1. **Bottom-Up Understanding**: Starts with individual files and builds toward architectural comprehension
+2. **Recursive Feedback**: Each generated summary feeds back into the embeddings database
+3. **Context Amplification**: Later analyses benefit from all previous insights
+4. **Dual Summarization**: Generates both concise abstracts and detailed explanations
 
 ---
 
-## ⚡️ Quick Start
+## 🚀 The Magic in Action
 
-**3. Run the generator:**
+### Phase 1: 🕷️ **Intelligent Crawling**
+```python
+# Discovers source structure automatically
+src_path = find_source_directory(repo_path)
+docs_path = find_docs_directory(repo_path)
 
-The script will automatically clone the manim repository into a temporary directory, run the full pipeline, and generate the documentation in a generated_docs/ folder.
-
-```bash
-python main.py --repo-url https://github.com/ManimCommunity/manim.git
+# Builds comprehensive code understanding
+elements, import_graph, ast_map = crawl_source_code(src_path)
 ```
 
-**4. View the output:**
-
-Open the main page in your browser to explore the generated site.
-
-```bash
-open generated_docs/index.html
+### Phase 2: 🧠 **Recursive Analysis with RAG**
+```python
+# The secret sauce: Recursive summarization that enriches itself
+def generate_recursive_summary(elements, retriever, readme_content):
+    # 1. Build file-level summaries
+    for file_path, elements_in_file in grouped_elements:
+        abstractive_summary = ai_summarize_file(file_path, context)
+        detailed_summary = ai_detailed_analysis(file_path, context)
+        
+        # 🔥 KEY: Feed summary back into retrieval system
+        retriever.add_chunks([f"AI Summary: {abstractive_summary}"])
+    
+    # 2. Build module-level understanding (now enriched with file summaries)
+    for module_path in modules:
+        module_summary = ai_summarize_module(module_path, enhanced_context)
+        retriever.add_chunks([f"Module Summary: {module_summary}"])
+    
+    # 3. Build architectural understanding (enriched with everything)
+    final_summary = ai_architectural_analysis(all_enriched_context)
 ```
 
-## ⚙️ Advanced Usage
-
-You can override the auto-detection for the source and documentation directories:
-
-```bash
-python main.py \
-    --repo-url https://github.com/ManimCommunity/manim.git \
-    --src-dir manimlib \
-    --docs-dir docs/source
+### Phase 3: 📝 **Beautiful Generation**
+```python
+# Creates stunning interactive documentation
+create_documentation_file(analysis_result, all_elements_with_docs)
 ```
 
-## 🧠 Design Decisions & Trade-offs
+---
 
-As this was a time-limited exercise, I made several strategic decisions to prioritize a strong foundation over feature completeness.
+## 🎨 What You Get: Living Documentation
 
-| Decision | Rationale & Trade-offs | What I'd Do With More Time |
-|----------|------------------------|----------------------------|
-| Mocked AI & Templating | The core challenge is the system's architecture and data flow, not the specific prompts or HTML styling. Mocking these external dependencies allowed me to focus 100% on building a robust, testable pipeline. The current mocked functions return placeholder data that proves the end-to-end flow works correctly. | Integrate Real Services: I would implement the analyzer.py module with the openai library (using GPT-4 for its strong reasoning) and the generator.py module with Jinja2 for powerful and maintainable HTML templating. |
-| Standard Library Focus | The crawler uses only the standard ast, subprocess, pathlib, and tempfile modules. This ensures the prototype runs anywhere without dependencies and demonstrates a solid command of Python's built-in tools. | Add Specialized Libraries: I would add docutils to properly parse .rst files in the docs folder for richer context, and requests or a dedicated library for any web-crawling features. |
-| Static Site Output | A static HTML site is a perfect deliverable for the customer's request for a "manual". It's fast, portable, and requires no backend server to view. | Build a Web Application: For a V2, I would build a simple Flask or FastAPI web application where a user could input a Git URL and see the documentation being generated in real-time. |
-| No Persistent State | The system clones the repo into a temporary directory and leaves no trace. This is clean and simple for a CLI tool. | Add Caching: For performance, I would implement a caching layer (e.g., using joblib or a simple file-based cache) to store the AST parsing results and even AI outputs, so that re-running the tool on an unchanged repository is instantaneous. |
+### 🏠 **Interactive Architecture Diagrams**
+- **D3.js powered** tree visualizations
+- **Hover tooltips** with AI-generated summaries
+- **Collapsible nodes** for exploration
+- **Zoom and pan** for large codebases
 
-## 🔮 Future Improvements & Vision
+### 📖 **Intelligent Content Structure**
+- **Executive Summary**: High-level overview for stakeholders
+- **Interactive Architecture**: Visual code exploration
+- **Code Examples**: AI-curated, ready-to-run snippets
+- **API Reference**: Complete documentation with context
 
-This prototype is a solid foundation. Here's how I would evolve it into a full-fledged product:
+### ⚡ **Performance Optimized**
+- **Intelligent Caching**: LLM responses cached by content hash
+- **Deterministic Operations**: Consistent results across runs
+- **Incremental Updates**: Only re-analyzes changed components
 
-**Semantic Search:** Integrate a vector database (like ChromaDB or Pinecone) to allow users to ask natural language questions ("How do I render a chart?") and get back the most relevant code examples and documentation sections.
+---
 
-**Inconsistency Detection:** Use the AI to compare the generated documentation (from the code) with the existing documentation (from the docs folder) and automatically flag potential "documentation rot" where the docs are out of sync with the code's behavior.
+## 🔧 Quick Start
 
-**Interactive Examples:** Generate examples that can be run and modified directly in the browser using tools like Pyodide.
+### 1. **Setup**
+```bash
+# Clone and install
+git clone <repository-url>
+cd ConductAI
+pip install -r requirements.txt
 
-**VS Code Extension:** Create an extension that brings the AI-generated explanations directly into the developer's editor, appearing as enhanced tooltips on hover.
+# Configure your LLM (OpenRouter recommended)
+echo "OPENROUTER_API_KEY=your_key_here" > .env
+```
 
-**CI/CD Integration:** Package the tool as a GitHub Action that automatically re-generates and publishes the documentation on every push to the main branch.
+### 2. **Generate Documentation**
+```bash
+# Analyze any Python repository
+python main.py --repo-url https://github.com/ManimCommunity/manim.git --llm-mode openrouter
 
-Thank you for the opportunity to work on this exciting project!
+# Or use local Ollama
+python main.py --repo-url https://github.com/your/repo.git --llm-mode local
+```
+
+### 3. **Explore the Results**
+```bash
+# Open the beautiful documentation
+open output/documentation.html
+```
+
+---
+
+## 🏗️ Architecture: The Recursive Engine
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    🧠 RECURSIVE RAG PIPELINE                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  📁 Repository                                              │
+│    ├── 🔍 AST Analysis                                      │
+│    ├── 📊 Import Graph                                      │
+│    └── 📚 Existing Docs                                     │
+│                     │                                       │
+│                     ▼                                       │
+│  🗄️ Embeddings Database ←──────────────────────┐           │
+│    ├── Original documentation                   │           │
+│    ├── Code structure                          │           │
+│    ├── README context                          │           │
+│    └── Generated summaries (recursive!) ───────┘           │
+│                     │                                       │
+│                     ▼                                       │
+│  🔄 Recursive Summarization                                 │
+│    ├── 📄 File Analysis    → Enhanced Context              │
+│    ├── 📦 Module Synthesis → More Enhanced Context         │
+│    ├── 🏗️ Architecture     → Fully Enhanced Context       │
+│    └── 💎 Final Documentation                              │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 🧩 Core Components
+
+| Component | Purpose | Magic |
+|-----------|---------|-------|
+| **🕷️ Crawler** | Repository analysis | AST parsing, import tracking, doc ingestion |
+| **🧠 Analyzer** | Recursive RAG engine | Self-enriching embeddings, dual summarization |
+| **📝 Generator** | Beautiful HTML creation | D3.js diagrams, responsive design, copy buttons |
+| **⚡ Retriever** | Semantic search | Vector embeddings, context enhancement |
+| **💾 Cache** | Performance optimization | Content-based caching, deterministic keys |
+
+---
+
+## 🎯 The Recursive Advantage
+
+### 🔄 **Self-Reinforcing Knowledge**
+Each analysis phase enriches the knowledge base for subsequent phases:
+
+1. **File summaries** help understand modules
+2. **Module summaries** help understand architecture  
+3. **Architectural insights** help generate examples
+4. **Everything together** creates coherent, contextual documentation
+
+### 🎨 **Context-Aware Generation**
+Unlike traditional documentation generators, ConductDoc understands:
+- **Intent**: What the code is trying to achieve
+- **Relationships**: How components work together
+- **Patterns**: Common usage scenarios
+- **Evolution**: How the codebase is structured and why
+
+### ⚡ **Smart Caching**
+The caching system ensures:
+- **Consistency**: Identical inputs always produce identical outputs
+- **Speed**: Subsequent runs are lightning fast
+- **Efficiency**: Only changed content is re-analyzed
+
+---
+
+## 🌟 Advanced Features
+
+### 🎛️ **Flexible Configuration**
+```bash
+# Use different LLM providers
+python main.py --repo-url <repo> --llm-mode openrouter
+python main.py --repo-url <repo> --llm-mode local
+
+# Override auto-detection
+python main.py --repo-url <repo> --src-dir custom/source --docs-dir docs/
+
+# Debug and optimize
+python main.py --repo-url <repo> --save-debug-data --clear-cache
+```
+
+### 🔍 **Debug Mode**
+```bash
+# Saves intermediate data for analysis
+python main.py --repo-url <repo> --save-debug-data
+
+# Generates:
+# .temp/debug_import_graph.json     - Code dependencies
+# .temp/debug_module_map.json       - Module structure  
+# .temp/debug_docs_context.html     - Processed documentation
+```
+
+### ⚡ **Performance Options**
+```bash
+# Clear LLM cache for fresh analysis
+python main.py --repo-url <repo> --clear-cache
+
+# Cache directory: .cache/
+# Each response cached by content hash for consistency
+```
+
+---
+
+## 🔮 Future Vision
+
+### 🧠 **Enhanced Intelligence**
+- **Multi-language support**: Beyond Python to JavaScript, TypeScript, Go
+- **Cross-repository analysis**: Understanding dependencies and relationships
+- **Evolutionary documentation**: Tracking how codebases change over time
+
+### 🎯 **Advanced Features**
+- **Interactive Q&A**: Natural language queries about the codebase
+- **Code quality insights**: Automated suggestions for improvements
+- **Documentation validation**: Detecting outdated or incorrect documentation
+
+### 🌐 **Integration Ecosystem**
+- **IDE extensions**: Real-time documentation in your editor
+- **CI/CD integration**: Automated documentation updates
+- **Team collaboration**: Shared understanding across development teams
+
+---
+
+## 🎨 Sample Output
+
+The generated documentation includes:
+
+### 📊 **Interactive Architecture Diagram**
+A beautiful D3.js visualization showing:
+- 📁 **Directory structure** with collapsible nodes
+- 🐍 **Python modules** with type indicators
+- 📄 **Configuration files** with distinct styling
+- 💬 **Hover tooltips** with AI-generated summaries
+
+### 📚 **Comprehensive Content**
+- **Executive Overview**: Perfect for stakeholders and new team members
+- **Code Examples**: Curated, runnable examples for common tasks
+- **API Reference**: Complete documentation with source code
+- **Navigation**: Smooth scrolling, sticky navigation, responsive design
+
+---
+
+## 🤝 Contributing
+
+This project demonstrates the power of recursive AI analysis for code understanding. The architecture is designed for:
+
+- **🔧 Extensibility**: Easy to add new analysis types
+- **🧪 Testability**: Clear separation of concerns
+- **📈 Scalability**: Efficient caching and incremental updates
+- **🎨 Beauty**: Modern, responsive, interactive output
+
+---
+
+## 📄 License
+
+MIT License - Feel free to use this as inspiration for your own documentation automation projects!
+
+---
+
+*Built with ❤️ and recursive intelligence - where each analysis makes the next one smarter.*
